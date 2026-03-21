@@ -56,6 +56,15 @@ btn,button{cursor:pointer}
 .footer{margin-top:20px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:10px;line-height:1.7;color:#64748b}
 .empty{text-align:center;color:#94a3b8;padding:40px}
 .section-group{margin-bottom:16px}
+.view-toggle{display:flex;gap:4px;margin-bottom:10px}
+.view-btn{flex:1;padding:7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:12px;font-weight:600;color:#475569;cursor:pointer;text-align:center}
+.view-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.overview-map{width:100%;height:55vh;min-height:300px;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:10px;display:none}
+.overview-map.open{display:block}
+.map-legend{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;display:none}
+.map-legend.open{display:flex}
+.leg-item{display:flex;align-items:center;gap:3px;font-size:10px;color:#475569}
+.leg-dot{width:10px;height:10px;border-radius:99px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -67,6 +76,9 @@ btn,button{cursor:pointer}
 <div class="filters" id="filters"></div>
 <div class="cats" id="cats"></div>
 <p class="meta" id="meta"></p>
+<div class="view-toggle" id="viewToggle"></div>
+<div class="overview-map" id="overviewMap"></div>
+<div class="map-legend" id="mapLegend"></div>
 <div id="list"></div>
 
 <div class="fullscreen" id="fs" onclick="closeFull()">
@@ -146,8 +158,10 @@ const I=[
 
 document.getElementById('total').textContent = I.length;
 
-let state = { q:'', cat:'all', showRec:false, expanded:{}, showMap:{} };
+let state = { q:'', cat:'all', showRec:false, expanded:{}, showMap:{}, view:'list' };
 const maps = {};
+let overviewMap=null, overviewMarkers=[];
+let IMG_DATA={};
 
 function buildFilters(){
   const f=document.getElementById('filters');
@@ -188,33 +202,116 @@ function filtered(){
   return r;
 }
 
+function buildViewToggle(){
+  const vt=document.getElementById('viewToggle');
+  vt.innerHTML='';
+  ['list','map'].forEach(v=>{
+    const b=document.createElement('button');
+    b.className='view-btn'+(state.view===v?' active':'');
+    b.textContent=v==='list'?'📋 List View':'🗺️ Map View';
+    b.onclick=()=>{state.view=v;render();};
+    vt.appendChild(b);
+  });
+}
+
+function buildLegend(){
+  const leg=document.getElementById('mapLegend');
+  leg.innerHTML='';
+  Object.entries(C).forEach(([k,v])=>{
+    const el=document.createElement('div');
+    el.className='leg-item';
+    const dot=document.createElement('span');
+    dot.className='leg-dot';
+    dot.style.background=CC[k];
+    el.appendChild(dot);
+    const lbl=document.createElement('span');
+    lbl.textContent=v.split('&')[0].trim();
+    el.appendChild(lbl);
+    leg.appendChild(el);
+  });
+}
+
+function updateOverviewMap(items){
+  const mapEl=document.getElementById('overviewMap');
+  if(!overviewMap){
+    overviewMap=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([39.7,2.95],9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(overviewMap);
+  }
+  overviewMarkers.forEach(m=>overviewMap.removeLayer(m));
+  overviewMarkers=[];
+  if(!items.length) return;
+  const bounds=[];
+  items.forEach(i=>{
+    const color=CC[i.c];
+    const isRec=RECOMMENDED.has(i.id);
+    const m=L.circleMarker([i.lat,i.lng],{
+      radius:isRec?9:7,
+      fillColor:color,
+      color:'#fff',
+      weight:isRec?2.5:1.5,
+      fillOpacity:0.9
+    }).addTo(overviewMap);
+    const popup=`<div style="min-width:160px">
+      <div style="font-weight:700;font-size:12px;margin-bottom:3px">${isRec?'⭐ ':''}${i.n}</div>
+      <div style="font-size:10px;color:${color};margin-bottom:3px">${C[i.c]}</div>
+      <div style="font-size:10px;color:#64748b;margin-bottom:5px">🚗 ${i.dr}</div>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${i.lat},${i.lng}" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:#2563eb">🧭 Directions</a>
+      <span style="margin:0 4px;color:#d1d5db">|</span>
+      <a href="#" onclick="event.preventDefault();state.view='list';render();setTimeout(()=>{toggleCard(${i.id});document.getElementById('card-${i.id}').scrollIntoView({behavior:'smooth',block:'center'})},100)" style="font-size:10px;color:#2563eb">📋 Details</a>
+    </div>`;
+    m.bindPopup(popup);
+    overviewMarkers.push(m);
+    bounds.push([i.lat,i.lng]);
+  });
+  if(bounds.length) overviewMap.fitBounds(bounds,{padding:[30,30],maxZoom:13});
+}
+
 function render(){
   buildFilters();
+  buildViewToggle();
   const items=filtered();
   document.getElementById('meta').textContent=`${items.length} items · ⭐ = recommended · expand for photos, map & details`;
+
+  const mapEl=document.getElementById('overviewMap');
+  const legEl=document.getElementById('mapLegend');
   const list=document.getElementById('list');
-  list.innerHTML='';
 
-  if(!items.length){list.innerHTML='<p class="empty">No items match your filters.</p>';return;}
-
-  const grouped = (state.cat==='all' && !state.showRec);
-  if(grouped){
-    Object.entries(C).forEach(([k,v])=>{
-      const grp=items.filter(i=>i.c===k);
-      if(!grp.length) return;
-      const sec=document.createElement('div');
-      sec.className='section-group';
-      const h=document.createElement('h2');
-      h.className='section-head';
-      h.style.color=CC[k];
-      h.style.borderBottom=`2px solid ${CC[k]}25`;
-      h.textContent=`${v} (${grp.length})`;
-      sec.appendChild(h);
-      grp.forEach(i=>sec.appendChild(makeCard(i)));
-      list.appendChild(sec);
-    });
+  if(state.view==='map'){
+    mapEl.classList.add('open');
+    legEl.classList.add('open');
+    list.style.display='none';
+    buildLegend();
+    setTimeout(()=>{
+      if(overviewMap) overviewMap.invalidateSize();
+      updateOverviewMap(items);
+    },50);
   } else {
-    items.forEach(i=>list.appendChild(makeCard(i)));
+    mapEl.classList.remove('open');
+    legEl.classList.remove('open');
+    list.style.display='';
+    list.innerHTML='';
+
+    if(!items.length){list.innerHTML='<p class="empty">No items match your filters.</p>';return;}
+
+    const grouped = (state.cat==='all' && !state.showRec);
+    if(grouped){
+      Object.entries(C).forEach(([k,v])=>{
+        const grp=items.filter(i=>i.c===k);
+        if(!grp.length) return;
+        const sec=document.createElement('div');
+        sec.className='section-group';
+        const h=document.createElement('h2');
+        h.className='section-head';
+        h.style.color=CC[k];
+        h.style.borderBottom=`2px solid ${CC[k]}25`;
+        h.textContent=`${v} (${grp.length})`;
+        sec.appendChild(h);
+        grp.forEach(i=>sec.appendChild(makeCard(i)));
+        list.appendChild(sec);
+      });
+    } else {
+      items.forEach(i=>list.appendChild(makeCard(i)));
+    }
   }
 }
 
@@ -368,36 +465,34 @@ function initMap(item){
   maps[id]=m;
 }
 
+function imgCredit(cur){
+  if(cur.page) return `<a href="${cur.page}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — Wikimedia Commons</a>`;
+  if(cur.source) return `<a href="${cur.source}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — ${cur.credit||'Source'}</a>`;
+  return `<span class="img-src">📷 ${cur.title.substring(0,60)}</span>`;
+}
+
+function imgHtml(cur,item,imgs,idx){
+  return `
+    <div class="img-wrap" onclick="openFull(${JSON.stringify(cur).replace(/"/g,'&quot;')})">
+      <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:200px;object-fit:cover;display:block"/>
+      <div class="img-badge">${idx+1}/${imgs.length}</div>
+    </div>
+    <div class="img-nav">
+      <button class="btn" onclick="imgNav(this,${item.id},-1)">‹</button>
+      <div class="img-dots">${imgs.map((_,i)=>`<span class="img-dot${i===idx?' active':''}" onclick="imgGo(this,${item.id},${i})"></span>`).join('')}</div>
+      <button class="btn" onclick="imgNav(this,${item.id},1)">›</button>
+    </div>
+    ${imgCredit(cur)}
+  `;
+}
+
 function loadImgs(item, el){
   el.dataset.loaded='1';
-  el.innerHTML='<div style="padding:16px;text-align:center;color:#94a3b8;font-size:12px">Loading images...</div>';
-  const u=`https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(item.sq)}&gsrnamespace=6&gsrlimit=10&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=600&format=json&origin=*`;
-  fetch(u).then(r=>r.json()).then(d=>{
-    if(!d.query||!d.query.pages){el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No images found.</div>';return;}
-    const imgs=Object.values(d.query.pages).filter(p=>p.imageinfo&&p.imageinfo[0]&&p.imageinfo[0].thumburl&&!p.title.toLowerCase().includes('.svg')&&!p.title.toLowerCase().includes('.ogg')).slice(0,5).map(p=>({thumb:p.imageinfo[0].thumburl,full:p.imageinfo[0].url,page:`https://commons.wikimedia.org/wiki/${encodeURIComponent(p.title)}`,title:p.title.replace('File:','').replace(/\.\w+$/,'')}));
-    if(!imgs.length){el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No images found.</div>';return;}
-    let idx=0;
-    function showImg(){
-      const cur=imgs[idx];
-      el.innerHTML=`
-        <div class="img-wrap" onclick="openFull(${JSON.stringify(cur).replace(/"/g,'&quot;')})">
-          <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:200px;object-fit:cover;display:block"/>
-          <div class="img-badge">⛶ fullscreen</div>
-        </div>
-        <div class="img-nav">
-          <button class="btn" onclick="imgNav(this,${item.id},-1)">‹</button>
-          <div class="img-dots">${imgs.map((_,i)=>`<span class="img-dot${i===idx?' active':''}" onclick="imgGo(this,${item.id},${i})"></span>`).join('')}</div>
-          <button class="btn" onclick="imgNav(this,${item.id},1)">›</button>
-        </div>
-        <a href="${cur.page}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — Wikimedia Commons</a>
-      `;
-      el._imgs=imgs;el._idx=idx;
-    }
-    showImg();
-    el._show=showImg;
-    el._imgs=imgs;
-    el._idx=0;
-  }).catch(()=>{el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">Could not load images.</div>';});
+  const imgs=IMG_DATA[String(item.id)]||[];
+  if(!imgs.length){el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No images available.</div>';return;}
+  let idx=0;
+  el.innerHTML=imgHtml(imgs[0],item,imgs,0);
+  el._imgs=imgs;el._idx=0;
 }
 
 window.imgNav=function(btn,id,dir){
@@ -405,18 +500,8 @@ window.imgNav=function(btn,id,dir){
   if(!el||!el._imgs) return;
   el._idx=(el._idx+dir+el._imgs.length)%el._imgs.length;
   const imgs=el._imgs; const idx=el._idx; const cur=imgs[idx];
-  el.innerHTML=`
-    <div class="img-wrap" onclick="openFull(${JSON.stringify(cur).replace(/"/g,'&quot;')})">
-      <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:200px;object-fit:cover;display:block"/>
-      <div class="img-badge">⛶ fullscreen</div>
-    </div>
-    <div class="img-nav">
-      <button class="btn" onclick="imgNav(this,${id},-1)">‹</button>
-      <div class="img-dots">${imgs.map((_,i)=>`<span class="img-dot${i===idx?' active':''}" onclick="imgGo(this,${id},${i})"></span>`).join('')}</div>
-      <button class="btn" onclick="imgNav(this,${id},1)">›</button>
-    </div>
-    <a href="${cur.page}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — Wikimedia Commons</a>
-  `;
+  const item=I.find(i=>i.id===id);
+  el.innerHTML=imgHtml(cur,item,imgs,idx);
   el._imgs=imgs;el._idx=idx;
 };
 
@@ -424,15 +509,21 @@ window.imgGo=function(btn,id,i){
   const el=document.getElementById('imgs-'+id);
   if(!el||!el._imgs) return;
   el._idx=i;
-  window.imgNav(btn,id,0);
-  el._idx=i;
+  const imgs=el._imgs; const cur=imgs[i];
+  const item=I.find(x=>x.id===id);
+  el.innerHTML=imgHtml(cur,item,imgs,i);
+  el._imgs=imgs;el._idx=i;
 };
 
 window.openFull=function(cur){
   if(typeof cur==='string') cur=JSON.parse(cur);
   document.getElementById('fs-img').src=cur.full||cur.thumb;
   document.getElementById('fs-title').textContent=cur.title;
-  document.getElementById('fs-link').href=cur.page;
+  const link=document.getElementById('fs-link');
+  const src=cur.page||cur.source||'';
+  link.href=src;
+  link.textContent=src?('View source: '+(cur.credit||'Wikimedia Commons')+' ↗'):'';
+  link.style.display=src?'':'none';
   document.getElementById('fs').classList.add('open');
 };
 
@@ -442,7 +533,7 @@ window.closeFull=function(){
 
 document.getElementById('search').addEventListener('input',e=>{state.q=e.target.value;render();});
 
-render();
+fetch('images.json').then(r=>r.json()).then(d=>{IMG_DATA=d;render();}).catch(()=>render());
 </script>
 </body>
 </html>
