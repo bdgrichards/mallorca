@@ -21,7 +21,10 @@ btn,button{cursor:pointer}
 .section-head{font-size:14px;font-weight:700;margin:0 0 6px;padding-bottom:4px}
 .card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
 .card.rec{border:2px solid #f59e0b}
-.card-head{padding:11px 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.card-head{cursor:pointer;display:flex;align-items:stretch;gap:0}
+.card-thumb{width:72px;min-height:72px;flex-shrink:0;background:#e5e7eb;background-size:cover;background-position:center;border-radius:9px 0 0 9px}
+.card.rec .card-thumb{border-radius:8px 0 0 8px}
+.card-info{padding:11px 12px;display:flex;align-items:center;gap:7px;flex:1;min-width:0}
 .card-title{font-weight:700;font-size:13px;color:#1e293b}
 .badge{font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;white-space:nowrap}
 .card-desc{font-size:11px;color:#64748b;margin-top:2px}
@@ -39,8 +42,9 @@ btn,button{cursor:pointer}
 .btn{font-size:11px;padding:4px 10px;border-radius:7px;border:1px solid #d1d5db;background:#fff;color:#1e293b;text-decoration:none;cursor:pointer;display:inline-block}
 .btn.active{background:#dbeafe}
 .img-area{margin-top:10px}
-.img-wrap{position:relative;border-radius:8px;overflow:hidden;background:#f1f5f9;cursor:pointer}
-.img-wrap img{width:100%;height:200px;object-fit:cover;display:block}
+.img-wrap{position:relative;border-radius:8px;overflow:hidden;background:#f1f5f9;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.img-wrap:active{cursor:grabbing}
+.img-wrap img{width:100%;height:200px;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
 .img-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px}
 .img-nav{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
 .img-dots{display:flex;gap:4px}
@@ -81,20 +85,20 @@ btn,button{cursor:pointer}
 <div class="map-legend" id="mapLegend"></div>
 <div id="list"></div>
 
-<div class="fullscreen" id="fs" onclick="closeFull()">
+<div class="fullscreen" id="fs">
   <img id="fs-img" src="" alt=""/>
   <div class="fs-title" id="fs-title"></div>
   <a id="fs-link" href="#" target="_blank" rel="noopener noreferrer" class="fs-link" onclick="event.stopPropagation()">View on Wikimedia Commons ↗</a>
-  <div class="fs-hint">tap anywhere to close</div>
+  <div class="fs-hint">swipe to browse · tap to close</div>
 </div>
 
 <div class="footer"><strong>Tips:</strong> ⭐ marks recommended highlights. Photos load from Wikimedia Commons — click any image for fullscreen. Maps show exact location. "Directions" opens Google Maps. All drive times from Sa Pobla.</div>
 
 <script>
-const C={ev:"Events & Festivals",hk:"Hikes & Walks",cv:"Caves & Underground",ge:"Geology & Nature",hi:"History & Archaeology",cu:"Culture & Museums",fd:"Food & Drink",vw:"Viewpoints & Photos",hd:"Hidden Gems & Oddities"};
+const C={hk:"Hikes & Walks",vw:"Viewpoints & Photos",cv:"Casual Caves & Underground",hd:"Hidden Gems & Oddities",ge:"Geology & Nature",hi:"History & Archaeology",cu:"Culture & Museums",fd:"Food & Drink",ev:"Events & Festivals"};
 const CC={ev:"#dc2626",hk:"#059669",cv:"#92400e",ge:"#7c3aed",hi:"#b45309",cu:"#0891b2",fd:"#e11d48",vw:"#2563eb",hd:"#6d28d9"};
 const DC={"Easy":"#16a34a","Moderate":"#ca8a04","Hard":"#dc2626","Free":"#059669","Paid":"#7c3aed","—":"#94a3b8"};
-const RECOMMENDED=new Set([28]);
+const RECOMMENDED=new Set([23,28,30]);
 
 const I=[
 {id:1,n:"Semana Santa — Palm Sunday Processions",c:"ev",lat:39.5696,lng:2.6502,dr:"50 min",d:"4 processions through Palma old town on March 29. La Borriquita (18:00) is most family-friendly. Hooded penitents, ornate floats, brass bands through candlelit sandstone streets. Mallorca's 33 cofradías each have distinct robes.",dt:"Your final day — don't miss it. Position near Plaça de Cort or Passeig del Born.",df:"Free",tg:["unique","photogenic","cultural","free"],sq:"Semana Santa Palma Mallorca procession"},
@@ -327,11 +331,22 @@ function makeCard(i){
   head.className='card-head';
   head.onclick=()=>toggleCard(i.id);
 
+  const thumbImgs=(IMG_DATA[String(i.id)]||[]);
+  if(thumbImgs.length){
+    const thumb=document.createElement('div');
+    thumb.className='card-thumb';
+    thumb.style.backgroundImage=`url(${thumbImgs[0].thumb})`;
+    head.appendChild(thumb);
+  }
+
+  const infoWrap=document.createElement('div');
+  infoWrap.className='card-info';
+
   if(isRec){
     const star=document.createElement('span');
     star.textContent='⭐';
     star.style.cssText='font-size:17px;flex-shrink:0;line-height:1';
-    head.appendChild(star);
+    infoWrap.appendChild(star);
   }
 
   const info=document.createElement('div');
@@ -369,13 +384,14 @@ function makeCard(i){
   drive.textContent='🚗 '+i.dr;
   info.appendChild(drive);
 
-  head.appendChild(info);
+  infoWrap.appendChild(info);
 
   const chev=document.createElement('span');
   chev.className='chevron'+(isExp?' open':'');
   chev.id='chev-'+i.id;
   chev.textContent='▼';
-  head.appendChild(chev);
+  infoWrap.appendChild(chev);
+  head.appendChild(infoWrap);
   card.appendChild(head);
 
   const body=document.createElement('div');
@@ -473,7 +489,7 @@ function imgCredit(cur){
 
 function imgHtml(cur,item,imgs,idx){
   return `
-    <div class="img-wrap" onclick="openFull(${JSON.stringify(cur).replace(/"/g,'&quot;')})">
+    <div class="img-wrap">
       <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:200px;object-fit:cover;display:block"/>
       <div class="img-badge">${idx+1}/${imgs.length}</div>
     </div>
@@ -486,13 +502,47 @@ function imgHtml(cur,item,imgs,idx){
   `;
 }
 
+function makeDraggable(el,onSwipe,onClick){
+  let x0=null,y0=null,swiped=false,pointerId=null;
+  function down(x,y,pid){x0=x;y0=y;swiped=false;pointerId=pid;}
+  function move(x,y,e){
+    if(x0===null) return;
+    const dx=x-x0,dy=y-y0;
+    if(!swiped&&Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>15){swiped=true;if(e.cancelable)e.preventDefault();}
+  }
+  function up(x){
+    if(x0===null) return;
+    const dx=x-x0;x0=null;y0=null;pointerId=null;
+    if(!swiped) return false;
+    if(dx<-30) onSwipe(1);
+    else if(dx>30) onSwipe(-1);
+    return true;
+  }
+  el.addEventListener('mousedown',function(e){if(e.button===0){down(e.clientX,e.clientY,'m');e.preventDefault();}});
+  el.addEventListener('mousemove',function(e){if(pointerId==='m')move(e.clientX,e.clientY,e);});
+  el.addEventListener('mouseup',function(e){if(pointerId==='m'&&!up(e.clientX)&&onClick)onClick(e);});
+  el.addEventListener('touchstart',function(e){down(e.touches[0].clientX,e.touches[0].clientY,'t');},{passive:true});
+  el.addEventListener('touchmove',function(e){if(pointerId==='t')move(e.touches[0].clientX,e.touches[0].clientY,e);},{passive:false});
+  el.addEventListener('touchend',function(e){if(pointerId==='t')up(e.changedTouches[0].clientX);},{passive:true});
+  el.style.cursor='grab';
+}
+
+function attachSwipe(el,id){
+  const wrap=el.querySelector('.img-wrap');
+  if(!wrap) return;
+  makeDraggable(wrap,function(dir){window.imgNav(null,id,dir);},function(e){
+    const cur=(el._imgs||[])[el._idx||0];
+    if(cur) openFull(cur);
+  });
+}
+
 function loadImgs(item, el){
   el.dataset.loaded='1';
   const imgs=IMG_DATA[String(item.id)]||[];
   if(!imgs.length){el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No images available.</div>';return;}
-  let idx=0;
   el.innerHTML=imgHtml(imgs[0],item,imgs,0);
   el._imgs=imgs;el._idx=0;
+  attachSwipe(el,item.id);
 }
 
 window.imgNav=function(btn,id,dir){
@@ -503,6 +553,7 @@ window.imgNav=function(btn,id,dir){
   const item=I.find(i=>i.id===id);
   el.innerHTML=imgHtml(cur,item,imgs,idx);
   el._imgs=imgs;el._idx=idx;
+  attachSwipe(el,id);
 };
 
 window.imgGo=function(btn,id,i){
@@ -513,23 +564,51 @@ window.imgGo=function(btn,id,i){
   const item=I.find(x=>x.id===id);
   el.innerHTML=imgHtml(cur,item,imgs,i);
   el._imgs=imgs;el._idx=i;
+  attachSwipe(el,id);
 };
 
-window.openFull=function(cur){
-  if(typeof cur==='string') cur=JSON.parse(cur);
+let fsCtx=null;
+function showFullImg(){
+  if(!fsCtx) return;
+  const cur=fsCtx.imgs[fsCtx.idx];
   document.getElementById('fs-img').src=cur.full||cur.thumb;
-  document.getElementById('fs-title').textContent=cur.title;
+  document.getElementById('fs-title').textContent=cur.title+' ('+(fsCtx.idx+1)+'/'+fsCtx.imgs.length+')';
   const link=document.getElementById('fs-link');
   const src=cur.page||cur.source||'';
   link.href=src;
   link.textContent=src?('View source: '+(cur.credit||'Wikimedia Commons')+' ↗'):'';
   link.style.display=src?'':'none';
+}
+
+window.openFull=function(cur){
+  if(typeof cur==='string') cur=JSON.parse(cur);
+  const allAreas=document.querySelectorAll('.img-area');
+  for(const a of allAreas){
+    if(a._imgs){
+      const i=a._imgs.findIndex(im=>(im.thumb===cur.thumb&&im.title===cur.title));
+      if(i>=0){fsCtx={imgs:a._imgs,idx:i,areaId:a.id.replace('imgs-','')};break;}
+    }
+  }
+  if(!fsCtx) fsCtx={imgs:[cur],idx:0,areaId:null};
+  showFullImg();
   document.getElementById('fs').classList.add('open');
 };
 
 window.closeFull=function(){
   document.getElementById('fs').classList.remove('open');
+  fsCtx=null;
 };
+
+(function(){
+  const fs=document.getElementById('fs');
+  makeDraggable(fs,function(dir){
+    if(!fsCtx||fsCtx.imgs.length<2) return;
+    fsCtx.idx=(fsCtx.idx+dir+fsCtx.imgs.length)%fsCtx.imgs.length;
+    showFullImg();
+    if(fsCtx.areaId) window.imgGo(null,parseInt(fsCtx.areaId),fsCtx.idx);
+  },function(){closeFull();});
+  fs.style.cursor='';
+})();
 
 document.getElementById('search').addEventListener('input',e=>{state.q=e.target.value;render();});
 
