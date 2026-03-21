@@ -22,10 +22,10 @@ btn,button{cursor:pointer}
 .card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
 .card.rec{border:2px solid #f59e0b}
 .card-head{cursor:pointer;display:flex;align-items:stretch;gap:0}
-.card-thumb{width:72px;min-height:72px;flex-shrink:0;background:#e5e7eb;background-size:cover;background-position:center;border-radius:9px 0 0 9px}
+.card-thumb{width:110px;min-height:80px;flex-shrink:0;background:#e5e7eb;background-size:cover;background-position:center;border-radius:9px 0 0 9px}
 .card.rec .card-thumb{border-radius:8px 0 0 8px}
 .card-info{padding:11px 12px;display:flex;align-items:center;gap:7px;flex:1;min-width:0}
-.card-title{font-weight:700;font-size:13px;color:#1e293b}
+.card-title{font-weight:700;font-size:16px;color:#1e293b}
 .badge{font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;white-space:nowrap}
 .card-desc{font-size:11px;color:#64748b;margin-top:2px}
 .card-drive{font-size:10px;color:#94a3b8;margin-top:1px}
@@ -39,12 +39,12 @@ btn,button{cursor:pointer}
 .tag{font-size:9px;padding:2px 6px;border-radius:99px;background:#f1f5f9;color:#475569}
 .map-container{width:100%;height:180px;border-radius:8px;margin-top:8px;border:1px solid #e5e7eb;overflow:hidden}
 .btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.btn{font-size:11px;padding:4px 10px;border-radius:7px;border:1px solid #d1d5db;background:#fff;color:#1e293b;text-decoration:none;cursor:pointer;display:inline-block}
+.btn{font-size:12px;padding:10px 18px;border-radius:9px;border:1px solid #d1d5db;background:#fff;color:#1e293b;text-decoration:none;cursor:pointer;display:inline-block;font-weight:600}
 .btn.active{background:#dbeafe}
 .img-area{margin-top:10px}
 .img-wrap{position:relative;border-radius:8px;overflow:hidden;background:#f1f5f9;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .img-wrap:active{cursor:grabbing}
-.img-wrap img{width:100%;height:200px;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.img-wrap img{width:100%;height:300px;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
 .img-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px}
 .img-nav{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
 .img-dots{display:flex;gap:4px}
@@ -92,75 +92,16 @@ btn,button{cursor:pointer}
   <div class="fs-hint">swipe to browse · tap to close</div>
 </div>
 
-<div class="footer"><strong>Tips:</strong> ⭐ marks recommended highlights. Photos load from Wikimedia Commons — click any image for fullscreen. Maps show exact location. "Directions" opens Google Maps. All drive times from Sa Pobla.</div>
 
 <script>
 const C={hk:"Hikes & Walks",vw:"Viewpoints & Photos",cv:"Casual Caves & Underground",hd:"Hidden Gems & Oddities",ge:"Geology & Nature",hi:"History & Archaeology",cu:"Culture & Museums",fd:"Food & Drink",ev:"Events & Festivals"};
 const CC={ev:"#dc2626",hk:"#059669",cv:"#92400e",ge:"#7c3aed",hi:"#b45309",cu:"#0891b2",fd:"#e11d48",vw:"#2563eb",hd:"#6d28d9"};
 const DC={"Easy":"#16a34a","Moderate":"#ca8a04","Hard":"#dc2626","Free":"#059669","Paid":"#7c3aed","—":"#94a3b8"};
-const RECOMMENDED=new Set([23,28,30]);
+const RECOMMENDED=new Set([21,23,28,30,31]);
 
-const I=[
-{id:1,n:"Semana Santa — Palm Sunday Processions",c:"ev",lat:39.5696,lng:2.6502,dr:"50 min",d:"4 processions through Palma old town on March 29. La Borriquita (18:00) is most family-friendly. Hooded penitents, ornate floats, brass bands through candlelit sandstone streets. Mallorca's 33 cofradías each have distinct robes.",dt:"Your final day — don't miss it. Position near Plaça de Cort or Passeig del Born.",df:"Free",tg:["unique","photogenic","cultural","free"],sq:"Semana Santa Palma Mallorca procession"},
-{id:2,n:"Mallorca On Season Fest",c:"ev",lat:39.5669,lng:2.6489,dr:"50 min",d:"Free 3-day music festival at Parc de la Mar beneath Palma Cathedral. Mar 27–29. Multiple stages, local and Spanish acts. Marks the official start of tourist season.",dt:"Cathedral as backdrop. Vermut Day on Sunday.",df:"Free",tg:["free","music","festival"],sq:"Parc de la Mar Palma cathedral"},
-{id:3,n:"Art Palma Brunch 2026",c:"ev",lat:39.5715,lng:2.6468,dr:"50 min",d:"21st edition. 15+ galleries across Palma, Andratx, Pollença, Santanyí open simultaneously with free entry and refreshments. March 21, 11:00–15:00.",dt:"Guided gallery tours run all week after.",df:"Free",tg:["art","free","galleries"],sq:"art gallery Palma Mallorca"},
-{id:4,n:"Palma Half Marathon & 10K",c:"ev",lat:39.5669,lng:2.6489,dr:"50 min",d:"33rd edition, March 22. 10K at 09:00, half marathon at 10:00 from Parc de la Mar. Flat scenic route past Bellver Castle.",dt:"Bib collection at El Corte Inglés, Fri 16–21, Sat 10–20.",df:"Paid",tg:["sports","running"],sq:"Palma marathon Mallorca"},
-{id:5,n:"Trofeo Princesa Sofía Sailing",c:"ev",lat:39.5596,lng:2.6286,dr:"50 min",d:"55th edition. 800+ teams, 1,200+ sailors from 62 nations in all 10 Olympic classes. March 27–April 4. Free waterfront spectating.",dt:"First event of 2026 Sailing Grand Slam.",df:"Free",tg:["sports","sailing","free","world-class"],sq:"Trofeo Princesa Sofia regatta Palma"},
-{id:6,n:"Fira del Ram Funfair",c:"ev",lat:39.5788,lng:2.6245,dr:"50 min",d:"Palma's annual funfair. 200+ attractions including 60m Ferris wheel. Dating to 18th century. Open throughout your stay.",dt:"Weekdays 16:30–23:00, weekends from 11:00.",df:"Paid",tg:["family","funfair"],sq:"Fira del Ram Palma funfair"},
-{id:7,n:"Sineu Wednesday Market",c:"ev",lat:39.6480,lng:3.0013,dr:"20 min",d:"One of Mallorca's oldest markets with a live animal section — unique on the island. 08:00–13:00.",dt:"Take the vintage train from Inca.",df:"Free",tg:["market","unique","animals","free"],sq:"Sineu market Mallorca"},
-{id:8,n:"Inca Thursday Market",c:"ev",lat:39.7213,lng:2.9108,dr:"15 min",d:"Mallorca's largest market — ~500 stalls famous for leather goods.",dt:"5 min from Binissalem wine country.",df:"Free",tg:["market","leather","free"],sq:"Inca market Mallorca leather"},
-{id:9,n:"Gaudí Year 2026 at La Seu",c:"ev",lat:39.5676,lng:2.6487,dr:"50 min",d:"Centenary of Gaudí's death. Year-long programme at Palma Cathedral — his only major work outside Catalonia. Exhibition 'Gaudí at the Seu', special guided tours.",dt:"Cathedral entry ~€9. The baldachin is extraordinary.",df:"Paid",tg:["architecture","gaudi","unique"],sq:"Gaudi Cathedral Palma Mallorca baldachin"},
-{id:20,n:"Talaia d'Alcúdia",c:"hk",lat:39.8558,lng:3.1338,dr:"20 min",d:"446m summit on La Victòria peninsula. 360° views of both bays. Full circuit includes remote Platja des Coll Baix. 7–12 km, 2–5 hr.",dt:"Top pick near Sa Pobla. Not suitable in wind.",df:"Moderate",tg:["panorama","beach","near"],sq:"Talaia Alcudia Victoria peninsula Mallorca"},
-{id:21,n:"Sa Cova Tancada",c:"cv",lat:39.8590,lng:3.1250,dr:"20 min",d:"Best free cave on the island. Huge cavity with stalactites rivalling commercial caves — some exceed 10m. ~250m explorable. Chain-assisted descent. Headlamp essential.",dt:"Combine with Talaia d'Alcúdia circuit.",df:"Moderate",tg:["cave","free","stalactites","near"],sq:"Cova Tancada Alcudia cave stalactite"},
-{id:22,n:"Fonts Ufanes Karst Springs",c:"ge",lat:39.7942,lng:2.9590,dr:"10 min",d:"Mallorca's most remarkable geological phenomenon. After heavy rain, water erupts from the forest floor at up to 100m³/sec. Declared Natural Monument 2001. Free, open 10–17.",dt:"Check social media after rain. Possibly active in March.",df:"Easy",tg:["geology","unique","rain-friendly","free","near","world-class"],sq:"Fonts Ufanes Campanet Mallorca water forest"},
-{id:23,n:"Puig de Maria",c:"hk",lat:39.8739,lng:3.0110,dr:"15 min",d:"14th-century monastery at 330m above Pollença. 360° panorama. Best viewpoint-to-effort ratio on the island. Monastery café. 4.4 km, 1.5–2 hr.",dt:"Outstanding sunset spot near Sa Pobla.",df:"Easy",tg:["panorama","monastery","food","near"],sq:"Puig Maria Pollensa monastery Mallorca"},
-{id:24,n:"Boquer Valley",c:"hk",lat:39.9155,lng:3.0803,dr:"20 min",d:"Easy walk through dramatic rock pinnacles to remote pebble beach. Wild goats. Key birdwatching corridor. 5 km, 1.5–2 hr.",dt:"Right fork at Coll de Moro for cliff-edge photography.",df:"Easy",tg:["birds","goats","beach","near"],sq:"Boquer Valley Pollenca Mallorca hiking"},
-{id:25,n:"S'Albufera Nature Reserve",c:"ge",lat:39.7946,lng:3.1060,dr:"10 min",d:"Largest Balearic wetland. 303+ bird species, 8 hides. Late March = peak spring migration. Free with permit from visitor centre.",dt:"At Sa Pobla's doorstep. Works in rain.",df:"Easy",tg:["birds","flat","rain-friendly","free","near"],sq:"S'Albufera Mallorca wetland birds"},
-{id:26,n:"Lluc Es Camell Loop",c:"hk",lat:39.8230,lng:2.8850,dr:"25 min",d:"Camel-shaped karst rock, Bronze Age burial cave Sa Cometa des Morts, 500-year-old oak. Under forest canopy. 5.5 km, 1.5–2 hr.",dt:"Sa Cometa descends ~60m. Headlamp needed. Good in rain.",df:"Moderate",tg:["cave","geology","shelter","near"],sq:"Es Camell Lluc Mallorca karst"},
-{id:27,n:"Puig de Massanella (1,365m)",c:"hk",lat:39.8067,lng:2.8700,dr:"25 min",d:"Mallorca's highest accessible summit. Otherworldly karst plateau, views to Menorca. 15.5 km, 5–6 hr, 840m gain. Via Comafreda: €6.",dt:"Snow/ice possible. Clear day essential.",df:"Hard",tg:["summit","panorama","karst","near"],sq:"Puig Massanella summit Mallorca"},
-{id:28,n:"Formentor — Es Colomer",c:"vw",lat:39.9297,lng:3.1310,dr:"30 min",d:"Mallorca's most famous viewpoint. Platforms over 300m vertical cliffs. No hiking needed — roadside. No car restrictions in March.",dt:"Early morning for soft light.",df:"Easy",tg:["panorama","iconic","roadside","near"],sq:"Mirador Es Colomer Formentor Mallorca cliff"},
-{id:29,n:"Calvari Steps, Pollença",c:"hi",lat:39.8780,lng:3.0160,dr:"15 min",d:"365 cypress-lined steps to Baroque chapel. On Palm Sunday (Mar 29) the Via Crucis procession descends these steps.",dt:"Quick, photogenic, good in light rain.",df:"Easy",tg:["culture","quick","near","free"],sq:"Calvari steps Pollensa cypress Mallorca"},
-{id:30,n:"Torrent de Pareis",c:"hk",lat:39.8483,lng:2.8083,dr:"35 min",d:"Largest karstic canyon in the Balearics. 250–300m walls narrowing to arm's width. Full: 6.5 km, 3–5 hr. Easy option: walk from Sa Calobra through tunnels.",dt:"Flash flood risk after rain. Road down has 26 hairpins.",df:"Hard",tg:["canyon","geology","iconic","world-class"],sq:"Torrent de Pareis Sa Calobra canyon Mallorca"},
-{id:31,n:"Barranc de Biniaraix",c:"hk",lat:39.7695,lng:2.7488,dr:"45 min",d:"1,932 ancient stone steps through a gorge. Site of Cultural Interest. March: water flowing, wildflowers. 8 km, 2–3 hr.",dt:"Park in Sóller on weekends. Lower section sheltered.",df:"Moderate",tg:["gorge","history","steps","photogenic"],sq:"Barranc Biniaraix stone steps gorge Mallorca"},
-{id:32,n:"Castell d'Alaró",c:"hk",lat:39.7453,lng:2.8024,dr:"30 min",d:"Castle occupied since 902 AD at 822m. Extraordinary panoramas. Summit refuge serves coffee/cake. Es Verger: legendary roast lamb.",dt:"Approach from Orient is quieter.",df:"Moderate",tg:["castle","panorama","food","history"],sq:"Castell Alaro Mallorca castle mountain"},
-{id:33,n:"Camí de s'Arxiduc",c:"hk",lat:39.7348,lng:2.6358,dr:"50 min",d:"Archduke's ridgeline path above Valldemossa. Sheer cliff viewpoints. 11–17 km, 4–5 hr. Extremely dangerous in wind.",dt:"Permit needed for Muntanya del Voltor section.",df:"Hard",tg:["ridge","panorama","exposed","iconic"],sq:"Cami Arxiduc Valldemossa ridge Mallorca"},
-{id:34,n:"La Trapa Monastery",c:"hk",lat:39.5817,lng:2.3498,dr:"80 min",d:"Ruined Trappist monastery with Sa Dragonera island views. Chain-assisted scramble. 9.5 km, 3–4 hr.",dt:"Founded 1810 by monks fleeing French Revolution.",df:"Hard",tg:["monastery","island-views","scramble"],sq:"La Trapa Sant Elm Dragonera Mallorca"},
-{id:35,n:"Cúber Reservoir",c:"hk",lat:39.7915,lng:2.8027,dr:"40 min",d:"Walk around milky-blue water with Puig Major behind. Ospreys, vultures. Full in March. 4 km, 1–1.5 hr, flat. Submerged ruins in drought.",dt:"Combine with Tossals Verds circuit for a full day.",df:"Easy",tg:["reservoir","birds","easy","photogenic"],sq:"Cuber reservoir Mallorca Puig Major"},
-{id:40,n:"Avenc de Son Pou",c:"cv",lat:39.7180,lng:2.7780,dr:"45 min",d:"Cathedral-sized sinkhole. 80m ceiling with natural oculus — dramatic light shafts. May be closed for conservation — verify before visiting.",dt:"The hike from Orient is worthwhile regardless.",df:"Moderate",tg:["cave","light-shafts","verify"],sq:"Avenc Son Pou cave Mallorca light"},
-{id:41,n:"Necròpoli de l'Alzinaret",c:"cv",lat:39.9110,lng:3.0560,dr:"25 min",d:"Seven prehistoric burial caves from ~1600 BC. Holm oak forest. Cave #7 may date to 3500 BC. Very easy, free.",dt:"Fascinating Bronze Age archaeology. Family-friendly.",df:"Easy",tg:["cave","archaeology","free","near"],sq:"Alzinaret Cala Sant Vicenc caves prehistoric"},
-{id:42,n:"Portals Vells Quarry Caves",c:"cv",lat:39.4848,lng:2.5288,dr:"55 min",d:"Medieval quarry caves — the stone built Palma Cathedral. 80m chambers with carved altar. No torch needed. Free.",dt:"Shipwrecked Genoese sailors left inscriptions.",df:"Easy",tg:["cave","history","free","family"],sq:"Portals Vells cave Mallorca quarry"},
-{id:43,n:"Coves d'Artà",c:"cv",lat:39.7270,lng:3.4470,dr:"45 min",d:"22–25m stalagmite — among tallest in Europe. Entrance in sea cliffs 50m above Mediterranean. €15.",dt:"Evidence sea was 16m higher 3.3 million years ago.",df:"Paid",tg:["cave","geology","world-class"],sq:"Coves Arta Mallorca stalactite cave"},
-{id:44,n:"Coves del Drac",c:"cv",lat:39.5400,lng:3.3300,dr:"45 min",d:"Lake Martel — one of Europe's largest underground lakes. 177m long. Classical concerts from boats. €17.",dt:"Book online to avoid queues.",df:"Paid",tg:["cave","underground-lake","concert"],sq:"Cuevas Drach Porto Cristo underground lake"},
-{id:50,n:"Es Pontàs Sea Arch",c:"ge",lat:39.3428,lng:3.1293,dr:"70 min",d:"20m natural sea arch. Site of Chris Sharma's 9a+ deep-water solo — birthplace of psicobloc. Best at sunrise/sunset.",dt:"5-min walk to viewpoint with bench.",df:"Easy",tg:["arch","geology","iconic","photogenic","world-class"],sq:"Es Pontas sea arch Mallorca Santanyi"},
-{id:51,n:"Sa Foradada — The Pierced One",c:"vw",lat:39.7526,lng:2.6133,dr:"50 min",d:"Peninsula with 18m hole in cliff. Sunset light passes through. Roadside viewpoint at Son Marroig; 1-hour hike to peninsula.",dt:"THE most iconic sunset viewpoint on Mallorca.",df:"Easy",tg:["sunset","iconic","panorama","photogenic"],sq:"Sa Foradada Mallorca Deia sunset"},
-{id:52,n:"Salt des Freu Waterfall",c:"ge",lat:39.7383,lng:2.8113,dr:"45 min",d:"Two 10-metre cascades into emerald pools. Flowing best Oct–Apr. Short: 2.6 km, 1 hr.",dt:"Arrive before 11 AM weekends after rain.",df:"Easy",tg:["waterfall","rain-friendly","photogenic"],sq:"Salt des Freu waterfall Orient Mallorca"},
-{id:53,n:"Sa Calobra Road",c:"ge",lat:39.8442,lng:2.8167,dr:"40 min",d:"800m descent, 26 hairpins in Jurassic limestone. The Nus de Sa Corbata loops 270° over itself. Built by hand 1932–33.",dt:"Engineering marvel — combine with Torrent de Pareis.",df:"—",tg:["road","engineering","geology","iconic"],sq:"Sa Calobra road hairpin Mallorca"},
-{id:60,n:"Necròpolis de Son Real",c:"hi",lat:39.7683,lng:3.2017,dr:"15 min",d:"Largest prehistoric cemetery in the Balearics — 130+ tombs from 7th c. BC on the waterline. Free coastal walk through pine forest.",dt:"Sunrise photography is extraordinary here.",df:"Easy",tg:["archaeology","free","photogenic","near","world-class"],sq:"Necropolis Son Real Mallorca coast tombs"},
-{id:61,n:"Ses Païsses Talayotic Site",c:"hi",lat:39.6870,lng:3.3530,dr:"35 min",d:"Atmospheric walled talayotic enclosure engulfed by massive ancient oaks. Central talayot. ~€4.",dt:"Unique Balearic megalithic culture.",df:"Easy",tg:["archaeology","unique","talayotic"],sq:"Ses Paisses Arta talayotic Mallorca"},
-{id:62,n:"Xueta Jewish Quarter",c:"hi",lat:39.5700,lng:2.6500,dr:"50 min",d:"Medieval Jewish quarter. Monti-Sion church built atop synagogue. 37 burned alive in 1691. Walking tours available.",dt:"One of Europe's most extraordinary crypto-Jewish stories.",df:"Free",tg:["history","unique","jewish","free"],sq:"Call Jewish quarter Palma Mallorca"},
-{id:63,n:"Civil War Bunkers, Es Trenc",c:"hi",lat:39.3576,lng:2.9725,dr:"65 min",d:"160+ machine-gun nests built 1939–42 by POW slave labour. Concrete bunkers on pristine white sand. Some painted with poetry.",dt:"Also at Can Picafort (15 min from Sa Pobla).",df:"Free",tg:["history","civil-war","photogenic","free"],sq:"Es Trenc bunker Civil War Mallorca beach"},
-{id:64,n:"Pollentia Roman City",c:"hi",lat:39.8502,lng:3.1180,dr:"15 min",d:"Most important Roman site on Mallorca, founded 123 BC. Forum, residential quarter, theatre. ~€4.",dt:"Combine with Alcúdia market on Sundays.",df:"Paid",tg:["roman","archaeology","near"],sq:"Pollentia Roman ruins Alcudia Mallorca"},
-{id:70,n:"Museo Sa Bassa Blanca",c:"cu",lat:39.8667,lng:3.1100,dr:"20 min",d:"Building by Hassan Fathy. 150+ children's portraits in underground cistern. Woolly rhinoceros + Swarovski curtain. Sculpture park, camera obscura. ~€12, free Tuesdays.",dt:"Most extraordinary hidden cultural site.",df:"Paid",tg:["art","architecture","unique","near"],sq:"Sa Bassa Blanca museum Alcudia Mallorca"},
-{id:71,n:"Bellver Castle",c:"cu",lat:39.5637,lng:2.6196,dr:"50 min",d:"Only circular castle in Spain, one of 3–4 in Europe. Built 1300–1311, Gothic. €4, free Sundays.",dt:"Panoramic views of Palma and the bay.",df:"Paid",tg:["castle","unique","architecture","world-class"],sq:"Bellver Castle Palma Mallorca circular"},
-{id:72,n:"Palma Cathedral — La Seu",c:"cu",lat:39.5676,lng:2.6487,dr:"50 min",d:"World's largest original Gothic rose window (13.8m). Gaudí's baldachin. Barceló's ceramic seascape mural. ~€9.",dt:"2026 is Gaudí Year — centenary exhibitions.",df:"Paid",tg:["architecture","gaudi","gothic","world-class"],sq:"Palma Cathedral La Seu interior Mallorca"},
-{id:73,n:"Fundació Miró Mallorca",c:"cu",lat:39.5528,lng:2.6134,dr:"55 min",d:"Miró's studio preserved as he left it in 1983 — paint splashes, unfinished canvases. Sculpture garden.",dt:"Combined ticket with Es Baluard available.",df:"Paid",tg:["art","miro","studio"],sq:"Fundacio Miro Mallorca studio"},
-{id:74,n:"Sóller Vintage Train",c:"cu",lat:39.5940,lng:2.6532,dr:"45 min",d:"Since 1912 in unchanged wooden carriages through 13 tunnels. Connect with tram to Port de Sóller. ~€25 return.",dt:"Atlas Obscura featured. Departs Palma.",df:"Paid",tg:["train","vintage","engineering","iconic"],sq:"Soller train vintage Mallorca wooden"},
-{id:80,n:"Ca'n Joan de s'Aigo",c:"fd",lat:39.5703,lng:2.6518,dr:"50 min",d:"Founded 1700 — among Spain's oldest cafés. Originally sold mountain snow/ice. 18th-century décor intact. Ensaimadas + hot chocolate.",dt:"Original at Carrer de Can Sanç.",df:"—",tg:["cafe","oldest","ensaimada","unique"],sq:"Can Joan de s'Aigo cafe Palma Mallorca"},
-{id:81,n:"Mercat de l'Olivar",c:"fd",lat:39.5741,lng:2.6508,dr:"50 min",d:"Palma's main food market. Mon–Sat 07–15. Stall cooks fish you buy. Tapas bars inside. Saturday mornings liveliest.",dt:"Combine with Santa Catalina market.",df:"Free",tg:["market","food","tapas"],sq:"Mercat Olivar Palma food market"},
-{id:82,n:"Olive Oil at Can Det",c:"fd",lat:39.7651,lng:2.7101,dr:"40 min",d:"400-year-old Sóller estate. Daily English tour 12:00 (~€25). Oil, bread, ramallet tomatoes, almonds, oranges.",dt:"Combine with Sóller market + vintage tram.",df:"Paid",tg:["olive-oil","tasting","unique"],sq:"olive oil Soller Mallorca tasting"},
-{id:90,n:"Esglésida Nova — Roofless Church",c:"hd",lat:39.6260,lng:3.3847,dr:"40 min",d:"Unfinished church by Gaudí student Joan Rubió. Spectacular roofless Gothic/Modernist arches open to sky. Free.",dt:"Blue sky framed by stone arches — extraordinary photos.",df:"Free",tg:["abandoned","gaudi","photogenic","free"],sq:"Esglesia Nova Son Servera roofless church Mallorca"},
-{id:91,n:"Drac de Na Coca — Embalmed Dragon",c:"hd",lat:39.5700,lng:2.6500,dr:"50 min",d:"Embalmed 'dragon' (crocodile) in Diocesan Museum. 17th-century folklore: monster in Palma sewers. Fire-breathing effigy parades every February.",dt:"Sculpture on facade in Plaza Santa Eulalia.",df:"Paid",tg:["oddity","folklore","unique"],sq:"Drac Na Coca dragon Palma Mallorca"},
-{id:92,n:"Ferreret Toad — Living Fossil",c:"hd",lat:39.7800,lng:2.8500,dr:"30 min",d:"Discovered as fossils 1977, assumed extinct 2,000 years. Living specimens found 1980. Only 3.5cm, nowhere else on Earth. ~500 breeding pairs.",dt:"Attenborough came to film it. Sóller museum has exhibits.",df:"—",tg:["endemic","unique","world-class","wildlife"],sq:"Ferreret toad Alytes muletensis Mallorca"},
-{id:93,n:"Myotragus balearicus",c:"hd",lat:39.5667,lng:3.2000,dr:"45 min",d:"Extinct goat-antelope. World's first mammal with reptilian bone growth — cold-blooded characteristics. Forward-facing eyes, single incisor. Extinct ~3000 BC.",dt:"Manacor History Museum and Sóller Natural Science Museum.",df:"Paid",tg:["extinct","world-class","unique","museum"],sq:"Myotragus balearicus Mallorca fossil"},
-{id:94,n:"Cases de Neu — Ice Houses",c:"hd",lat:39.8150,lng:2.8700,dr:"30 min",d:"11 dry-stone structures on peaks >1,000m. 16th–19th century. Snow packed and transported by mule. Created Ca'n Joan de s'Aigo café tradition.",dt:"On Massanella hike from Lluc. 5 hrs round trip.",df:"Hard",tg:["engineering","unique","history","hike"],sq:"Cases de Neu snow house Mallorca Tramuntana"},
-{id:95,n:"Puente de las Siete Bocas",c:"hd",lat:39.5100,lng:2.7400,dr:"55 min",d:"Abandoned railway viaduct — 7 arches, 20m high, 78m long. From dismantled 1964 train line, concealed in forest. Free.",dt:"Atlas Obscura featured.",df:"Free",tg:["abandoned","viaduct","photogenic","free"],sq:"Puente Siete Bocas viaduct Mallorca abandoned"},
-{id:96,n:"Llucalcari Clay Baths",c:"hd",lat:39.7520,lng:2.6840,dr:"45 min",d:"Tiny cove near Deià where mountain water creates natural clay pools. Bathers cover in clay before swimming. 30-min walk.",dt:"Free, no facilities. Spectacular coastal scenery.",df:"Easy",tg:["unique","quirky","free","photogenic"],sq:"Llucalcari clay baths Deia Mallorca"},
-{id:97,n:"Gordiola Glassworks (1719)",c:"hd",lat:39.5640,lng:2.8880,dr:"35 min",d:"Daily master glassblowing using 300-year-old techniques. Glass Museum upstairs. Free entry, Algaida.",dt:"Techniques unchanged for centuries.",df:"Free",tg:["craft","unique","free","family"],sq:"Gordiola glass factory Algaida Mallorca"},
-{id:98,n:"La Granja de Esporles",c:"hd",lat:39.6680,lng:2.5750,dr:"55 min",d:"Living museum of traditional Mallorcan life. Wed/Fri: demonstrations in traditional dress + free tastings. Thu: folk dancing. ~€15.",dt:"Most immersive traditional Mallorcan experience.",df:"Paid",tg:["culture","traditional","food"],sq:"La Granja Esporles Mallorca traditional"},
-{id:99,n:"Torre des Verger — Tower of Souls",c:"vw",lat:39.6833,lng:2.5083,dr:"55 min",d:"17th-century pirate watchtower on cliff edge above UNESCO terraces. Legend says spirits lit its signal fire. Iconic Mallorca postcard.",dt:"Late afternoon/sunset. Near Banyalbufar.",df:"Free",tg:["watchtower","sunset","panorama","free"],sq:"Torre des Verger Banyalbufar Mallorca watchtower"},
-];
+let I=[];
 
-document.getElementById('total').textContent = I.length;
+document.getElementById('total').textContent = '…';
 
 let state = { q:'', cat:'all', showRec:false, expanded:{}, showMap:{}, view:'list' };
 const maps = {};
@@ -352,27 +293,28 @@ function makeCard(i){
   const info=document.createElement('div');
   info.style.cssText='flex:1;min-width:0';
 
-  const titleRow=document.createElement('div');
-  titleRow.style.cssText='display:flex;align-items:center;gap:5px;flex-wrap:wrap';
-  const title=document.createElement('span');
+  const title=document.createElement('div');
   title.className='card-title';
   title.textContent=i.n;
-  titleRow.appendChild(title);
+  info.appendChild(title);
+
+  const badgeRow=document.createElement('div');
+  badgeRow.style.cssText='display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:3px';
 
   const catBadge=document.createElement('span');
   catBadge.className='badge';
   catBadge.style.cssText=`background:${CC[i.c]}18;color:${CC[i.c]}`;
   catBadge.textContent=C[i.c];
-  titleRow.appendChild(catBadge);
+  badgeRow.appendChild(catBadge);
 
   if(i.df&&i.df!=='—'){
     const dfBadge=document.createElement('span');
     dfBadge.className='badge';
     dfBadge.style.cssText=`background:${DC[i.df]||'#888'};color:#fff`;
     dfBadge.textContent=i.df;
-    titleRow.appendChild(dfBadge);
+    badgeRow.appendChild(dfBadge);
   }
-  info.appendChild(titleRow);
+  info.appendChild(badgeRow);
 
   const desc=document.createElement('div');
   desc.className='card-desc';
@@ -437,13 +379,13 @@ function makeCard(i){
   dirBtn.href=`https://www.google.com/maps/dir/?api=1&destination=${i.lat},${i.lng}`;
   dirBtn.target='_blank';
   dirBtn.rel='noopener noreferrer';
-  dirBtn.textContent='🧭 Directions';
+  dirBtn.textContent='🧭 Get Directions';
   const gBtn=document.createElement('a');
   gBtn.className='btn';
   gBtn.href=`https://www.google.com/search?q=${encodeURIComponent(i.n+' Mallorca')}`;
   gBtn.target='_blank';
   gBtn.rel='noopener noreferrer';
-  gBtn.textContent='🔍 Google';
+  gBtn.textContent='🔍 Google Search';
   btns.appendChild(dirBtn);
   btns.appendChild(gBtn);
   body.appendChild(btns);
@@ -490,7 +432,7 @@ function imgCredit(cur){
 function imgHtml(cur,item,imgs,idx){
   return `
     <div class="img-wrap">
-      <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:200px;object-fit:cover;display:block"/>
+      <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:300px;object-fit:cover;display:block"/>
       <div class="img-badge">${idx+1}/${imgs.length}</div>
     </div>
     <div class="img-nav">
@@ -612,7 +554,15 @@ window.closeFull=function(){
 
 document.getElementById('search').addEventListener('input',e=>{state.q=e.target.value;render();});
 
-fetch('images.json').then(r=>r.json()).then(d=>{IMG_DATA=d;render();}).catch(()=>render());
+Promise.all([
+  fetch('items.json').then(r=>r.json()),
+  fetch('images.json').then(r=>r.json()).catch(()=>({}))
+]).then(([items, imgs])=>{
+  I=items;
+  IMG_DATA=imgs;
+  document.getElementById('total').textContent=I.length;
+  render();
+}).catch(err=>{console.error('Failed to load data:',err);render();});
 </script>
 </body>
 </html>
