@@ -145,8 +145,9 @@ select{padding:5px 8px;border-radius:8px;border:1px solid #d1d5db;font-size:12px
 <div class="overview-map" id="overviewMap"></div>
 <div class="map-legend" id="mapLegend"></div>
 <div class="rating-legend" id="ratingLegend">
-  Aesthetics: 1 = no formations · 2 = worth visiting · 3 = some formations · 4 = rich formations · 5 = awe-inspiring &nbsp;|&nbsp;
-  Difficulty: I = flat walk · II = hands · III = some rope · IV = ropes · V = vertical ≤15m · VI = vertical 16-100m · VII = vertical 100m+
+  <strong>Aesthetics:</strong> 1 = no formations · 2 = worth visiting · 3 = some formations · 4 = rich formations · 5 = awe-inspiring<br/>
+  <strong>Difficulty:</strong> I = flat walk · II = hands needed · III = some rope · IV = ropes required · V = vertical ≤15m · VI = vertical 16–100m · VII = vertical 100m+<br/>
+  <strong>Magnitude:</strong> I = horiz ≤15m · II = horiz 15–30m · III = horiz 30–300m · IV = horiz 300m+ · V = vert ≤15m · VI = vert 15–30m · VII = vert 30–100m · VIII = vert 100m+
 </div>
 <div id="list"></div>
 </div>
@@ -246,7 +247,7 @@ function buildOverviewMap(items){
     const r=c.aesthetics>=4?9:c.aesthetics>=3?7:6;
     const m=L.circleMarker([c.lat,c.lng],{radius:r,fillColor:color,color:'#fff',weight:1.5,fillOpacity:0.85}).addTo(overviewMap);
     m.bindPopup('<div style="min-width:180px"><div style="font-weight:700;font-size:12px;margin-bottom:3px">'+c.name+'</div>'
-      +'<div style="font-size:10px;color:#64748b;margin-bottom:2px">'+aesStars(c.aesthetics)+' · Diff '+(c.difficulty_value||'?')+'</div>'
+      +'<div style="font-size:10px;color:#64748b;margin-bottom:2px">'+aesStars(c.aesthetics)+' · Diff '+(c.difficulty_value||'?')+(c.magnitude?' · Mag '+c.magnitude:'')+'</div>'
       +'<div style="font-size:10px;color:#64748b;margin-bottom:5px">'+(c.municipality||'')+(c.depth?' · '+c.depth:'')+'</div>'
       +'<a href="#'+c.id+'" style="font-size:10px;color:#2563eb">View details →</a>'
       +(c.lat?'<span style="margin:0 4px;color:#d1d5db">|</span><a href="https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lng+'" target="_blank" rel="noopener" style="font-size:10px;color:#2563eb">Directions ↗</a>':'')
@@ -266,6 +267,7 @@ function makeCard(c){
   h+='<div class="badges">';
   if(c.aesthetics)h+='<span class="badge badge-aes" title="Aesthetics '+c.aesthetics+'/5">'+aesStars(c.aesthetics)+'</span>';
   if(dv)h+='<span class="badge badge-diff" style="background:'+dc+'" title="Difficulty '+dv+'">Diff '+dv+'</span>';
+  if(c.magnitude)h+='<span class="badge badge-mag" title="Magnitude '+c.magnitude+'">Mag '+c.magnitude+'</span>';
   if(c.municipality)h+='<span class="badge badge-mun">'+c.municipality+'</span>';
   h+='</div></div></div>';
   return h;
