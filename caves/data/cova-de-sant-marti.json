@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-sant-marti/cueva-sant-marti-5.jpg"
   ],
   "lat": 39.823889,
-  "lng": 3.103056
+  "lng": 3.103056,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SANT-MARTI.jpg"
 }

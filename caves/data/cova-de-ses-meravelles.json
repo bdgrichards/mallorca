@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SES-MERAVELLES/COVA-DE-SES-MERAVELLES-4.JPG"
   ],
   "lat": 39.752767,
-  "lng": 2.782448
+  "lng": 2.782448,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SES-MERAVELLES.jpg"
 }

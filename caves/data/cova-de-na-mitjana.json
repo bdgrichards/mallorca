@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-na-mitjana/COVA-DE-NA-MITJANA-3.jpg"
   ],
   "lat": 39.663819,
-  "lng": 3.454084
+  "lng": 3.454084,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-na-mitjana.jpg"
 }

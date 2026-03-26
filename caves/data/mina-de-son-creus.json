@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/mina-de-son-creus/mina-de-son-creus-4.JPG"
   ],
   "lat": 39.709888,
-  "lng": 2.705039
+  "lng": 2.705039,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/mina-de-son-creus.jpg"
 }

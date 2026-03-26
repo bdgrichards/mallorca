@@ -36,5 +36,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/coves-petites/coves-petites-14.JPG"
   ],
   "lat": 39.658848,
-  "lng": 3.44644
+  "lng": 3.44644,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/coves-petites.jpg"
 }

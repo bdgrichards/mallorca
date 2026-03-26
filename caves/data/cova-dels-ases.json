@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-dels-ases/cova-dels-ases-4.jpg"
   ],
   "lat": 39.432778,
-  "lng": 3.274722
+  "lng": 3.274722,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DETS-ASES-NUEVAS%20GALERIAS.jpg"
 }

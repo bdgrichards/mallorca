@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-minera-de-sa-malagata/minerales.jpg"
   ],
   "lat": 39.673221,
-  "lng": 2.609049
+  "lng": 2.609049,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-minera-de-sa-malagata.jpg"
 }

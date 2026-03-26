@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DEN-PALEM/COVA-DEN-PALEM-3.jpeg"
   ],
   "lat": 39.572804,
-  "lng": 2.557314
+  "lng": 2.557314,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DEN-PALEM.jpg"
 }

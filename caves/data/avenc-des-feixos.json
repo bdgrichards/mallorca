@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DES-FEIXOS/P1360440%20(Copy).JPG"
   ],
   "lat": 39.557166,
-  "lng": 2.551384
+  "lng": 2.551384,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DES-FEIXOS.jpg"
 }

@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA%20DE%20SA%20LLUNA%20PLENA/COVA%20DE%20SA%20LLUNA%20PLENA%206.JPG"
   ],
   "lat": 39.555293,
-  "lng": 3.366018
+  "lng": 3.366018,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA%20DESA%20LLUNA%20PLENA.jpg"
 }

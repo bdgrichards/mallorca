@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/coves-des-pilar/coves-des-pilar-9.JPG"
   ],
   "lat": 39.603724,
-  "lng": 2.590582
+  "lng": 2.590582,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVES-DEL-PILAR.jpg"
 }

@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/ESCLETXA-DE-SA-FUSTA/ESCLETXA-DE-SA-FUSTA-4.JPG"
   ],
   "lat": 39.549496,
-  "lng": 2.536943
+  "lng": 2.536943,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/ESCLETXA-DE-SA-FUSTA.jpg"
 }

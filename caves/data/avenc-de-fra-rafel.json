@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DE-FRA-RAFEL/AVENC-DES-FRA-RAFAEL-25.jpg"
   ],
   "lat": 39.839745,
-  "lng": 2.885903
+  "lng": 2.885903,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-FRA-RAFEL.jpg"
 }

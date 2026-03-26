@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cueva-de-calpesso/cova-de-cal-pesso-4.JPG"
   ],
   "lat": 39.91566,
-  "lng": 3.073984
+  "lng": 3.073984,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CAL-PESSO.jpg"
 }

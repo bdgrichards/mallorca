@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-CANET/COVA-DE-CANET-4.JPG"
   ],
   "lat": 39.653396,
-  "lng": 2.627532
+  "lng": 2.627532,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CANET.jpg"
 }

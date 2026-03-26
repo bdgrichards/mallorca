@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-TAPAT/AVENC-TAPAT-4.JPG"
   ],
   "lat": 39.55656,
-  "lng": 2.546069
+  "lng": 2.546069,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-TAPAT.jpg"
 }

@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-CORNAVAQUES/COVA-DE-CORNAVAQUES-3.JPG"
   ],
   "lat": 39.914844,
-  "lng": 3.022091
+  "lng": 3.022091,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CORNAVAQUES.jpg"
 }

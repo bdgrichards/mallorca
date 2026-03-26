@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DES-CABRIT/AVENC-DES-CABRIT-4.jpg"
   ],
   "lat": 39.853749,
-  "lng": 3.18833
+  "lng": 3.18833,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DES-CABRIT.jpg"
 }

@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-CA-NA-PICAROLA/COVA-DE-CA-NA-PICAROLA-4.JPG"
   ],
   "lat": 39.691832,
-  "lng": 2.727637
+  "lng": 2.727637,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CA-NA-PICAROLA.jpg"
 }

@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA%20DE%20CALA%20VARQUES%20D/COA%20DE%20CALA%20VARQUES%208.JPG"
   ],
   "lat": 39.49823,
-  "lng": 3.296565
+  "lng": 3.296565,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVES%20DE%20CALA%20BARQUES%20A-C-D.jpg"
 }

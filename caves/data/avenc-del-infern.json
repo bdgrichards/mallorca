@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DEL-INFERN/AVENC-DEL-INFERN-4.JPG"
   ],
   "lat": 39.575193,
-  "lng": 2.564774
+  "lng": 2.564774,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-L-INFERN.jpg"
 }

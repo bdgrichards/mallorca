@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-GUITARRETA/cova-de-sa-guitarreta-4.jpg"
   ],
   "lat": 39.408246,
-  "lng": 2.916543
+  "lng": 2.916543,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-sa-guitarreta.jpg"
 }

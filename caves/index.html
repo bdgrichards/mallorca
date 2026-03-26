@@ -348,6 +348,12 @@ function renderDetail(id){
     h+='</div>';
   }
 
+  if(c.topo_map){
+    h+='<div class="detail-section"><h3>Topographic Map</h3>';
+    h+='<img src="'+c.topo_map+'" alt="Topographic map of '+escHtml(c.name)+'" style="width:100%;border-radius:8px;cursor:pointer" onclick="openFsImg(\''+c.topo_map+'\')" onerror="this.parentElement.style.display=\'none\'">';
+    h+='</div>';
+  }
+
   h+='<div class="detail-section"><h3>Details</h3><dl class="detail-grid">';
   h+=field('Municipality',c.municipality);
   h+=field('Aesthetics',c.aesthetics?c.aesthetics+'/5':null);

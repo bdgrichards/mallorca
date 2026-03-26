@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-xots/cova-des-xots-4.jpg"
   ],
   "lat": 39.508056,
-  "lng": 3.299167
+  "lng": 3.299167,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-des-xots.jpg"
 }

@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/CRULL-DES-PUIG-VENTOS/crul-des-puig-ventos-4.JPG"
   ],
   "lat": 39.688475,
-  "lng": 2.805356
+  "lng": 2.805356,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/CRULL-DES-PUIG-VENTOS.jpg"
 }

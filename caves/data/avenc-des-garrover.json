@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVEC-DES-GARROVER/AVENC-DES-GARROVER-4.JPG"
   ],
   "lat": 39.55656,
-  "lng": 2.546069
+  "lng": 2.546069,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DES-GARROVER.jpg"
 }

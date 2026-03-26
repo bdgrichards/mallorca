@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-S-HOSTALET/COVA-DE-S-HOSTALET-4.jpg"
   ],
   "lat": 39.546224,
-  "lng": 2.56449
+  "lng": 2.56449,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-S-HOSTALET.jpg"
 }

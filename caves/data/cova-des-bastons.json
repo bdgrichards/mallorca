@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-BASTONS/COVA-DES-BASTONS-4.jpg"
   ],
   "lat": 39.882015,
-  "lng": 3.193026
+  "lng": 3.193026,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-BASTONS.jpg"
 }

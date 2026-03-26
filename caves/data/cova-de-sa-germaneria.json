@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-GERMANERIA/COVA-DE-SA-GERMANERIA-4.jpg"
   ],
   "lat": 39.58932,
-  "lng": 2.493275
+  "lng": 2.493275,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-GERMANERIA.jpg"
 }

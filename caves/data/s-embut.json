@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/s-embut/s-embut-3.jpg"
   ],
   "lat": 39.566829,
-  "lng": 2.583698
+  "lng": 2.583698,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/S-EMBUT.jpg"
 }

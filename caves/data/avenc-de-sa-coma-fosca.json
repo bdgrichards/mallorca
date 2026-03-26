@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DE-SA-COMA-FOSCA/AVENC-DE-SA-COMA-FOSCA-4.JPG"
   ],
   "lat": 39.594409,
-  "lng": 2.571176
+  "lng": 2.571176,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-SA-COMA-FOSCA.jpg"
 }

@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-dracs-santanyi/cova-des-dracs-5.JPG"
   ],
   "lat": 39.301443,
-  "lng": 3.099819
+  "lng": 3.099819,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-DRAC-O-DES-RAFAL-DES-PORCS.jpg"
 }

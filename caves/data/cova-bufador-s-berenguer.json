@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-bufador-s-berenguer/cova-bufador-s-berenguer-4.jpg"
   ],
   "lat": 39.684444,
-  "lng": 2.765278
+  "lng": 2.765278,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-bufador-son-berenguer.jpg"
 }

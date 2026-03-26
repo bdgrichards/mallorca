@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DES-PARES/avenc-des-pares-4.JPG"
   ],
   "lat": 39.795715,
-  "lng": 2.888335
+  "lng": 2.888335,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DES-PARES.jpg"
 }

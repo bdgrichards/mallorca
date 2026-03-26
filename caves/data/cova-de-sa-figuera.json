@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-sa-figuera/cova-de-sa-figuera-4.JPG"
   ],
   "lat": 39.550667,
-  "lng": 3.346906
+  "lng": 3.346906,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-sa-figuera.jpg"
 }

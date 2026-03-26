@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DE-CAN-CALIU/AVENC-DE-CAN-CALIU-4.JPG"
   ],
   "lat": 39.536705,
-  "lng": 2.537994
+  "lng": 2.537994,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-CAN-CALIU.jpg"
 }

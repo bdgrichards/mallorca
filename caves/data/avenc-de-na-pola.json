@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DE-NA-POLA/AVENC-DE-NA-POLA-4.jpg"
   ],
   "lat": 39.710821,
-  "lng": 2.780421
+  "lng": 2.780421,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-NA-POLA.jpg"
 }

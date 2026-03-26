@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA%20DES%20CAVALLERS/COVA%20DES%20CAVALLERS%202.JPG"
   ],
   "lat": 39.602596,
-  "lng": 2.500377
+  "lng": 2.500377,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/Cova%20des%20Cavallers_1972.jpg"
 }

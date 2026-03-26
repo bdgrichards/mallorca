@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-can-sion/cova-de-can-sion-4.JPG"
   ],
   "lat": 39.836667,
-  "lng": 2.995833
+  "lng": 2.995833,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-can-sion.JPG"
 }

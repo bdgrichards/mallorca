@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-REINETA/COVA-DE-SA-REINETA-4.JPG"
   ],
   "lat": 39.705971,
-  "lng": 2.736132
+  "lng": 2.736132,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-REINETA.jpg"
 }

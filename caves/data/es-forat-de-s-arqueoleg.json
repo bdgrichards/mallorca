@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/ES-FORAT-DE-S-ARQUEOLEG/ES-FORAT-DE-S-ARQUEOLEG-4.JPG"
   ],
   "lat": 39.55656,
-  "lng": 2.546069
+  "lng": 2.546069,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/ES-FORAT-DE-S-ARQEOLEG.jpg"
 }

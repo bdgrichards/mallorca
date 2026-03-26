@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-na-barxa/cova-de-na-barxa-7.jpg"
   ],
   "lat": 39.685687,
-  "lng": 3.458496
+  "lng": 3.458496,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA%20DE%20NA%20BARXA.jpg"
 }

@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/avenc-de-sa-esquerda/avenc-de-sa-esquerda-1.jpg"
   ],
   "lat": 39.551992,
-  "lng": 2.546133
+  "lng": 2.546133,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/avenc-de-sa-esquerda.jpg"
 }

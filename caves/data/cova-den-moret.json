@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DEN-MORET/COVA-DEN-MORET-4.JPG"
   ],
   "lat": 39.60817,
-  "lng": 2.602077
+  "lng": 2.602077,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DEN-MORET.jpg"
 }

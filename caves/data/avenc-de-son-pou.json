@@ -37,5 +37,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/avenc-de-son-pou/avenc-son-pou-3.jpg"
   ],
   "lat": 39.715319,
-  "lng": 2.754647
+  "lng": 2.754647,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/avenc-de-son-pou.JPG"
 }

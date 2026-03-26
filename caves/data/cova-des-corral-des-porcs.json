@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-CORRAL-DES-PORCS/COVA-DES-CORRAL-DES-PORCS-4.JPG"
   ],
   "lat": 39.722798,
-  "lng": 2.8643
+  "lng": 2.8643,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-CORRAL-DES-PORCS.jpg"
 }

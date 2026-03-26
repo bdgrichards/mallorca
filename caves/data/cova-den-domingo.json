@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-den-domingo/cova-den-domingo-6.JPG"
   ],
   "lat": 39.566984,
-  "lng": 2.571997
+  "lng": 2.571997,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DEN-DOMINGO.jpg"
 }

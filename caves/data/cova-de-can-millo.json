@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-CAN-MILLO/COVA-DE-CAN-MILLO-4.JPG"
   ],
   "lat": 39.705714,
-  "lng": 2.750283
+  "lng": 2.750283,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CAN-MILLO.jpg"
 }

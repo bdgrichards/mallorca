@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/EL-FORAT-502/EL-FORAT-502-4.JPG"
   ],
   "lat": 39.945919,
-  "lng": 3.178456
+  "lng": 3.178456,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/EL-FORAT-502.jpg"
 }

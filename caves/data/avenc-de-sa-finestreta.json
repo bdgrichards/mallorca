@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DE-SA-FINESTRETA/AVENC-DE-SA-FINESTRETA-4%20(Copy).jpg"
   ],
   "lat": 39.92039,
-  "lng": 3.098433
+  "lng": 3.098433,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-SA-FINESTRETA.jpg"
 }

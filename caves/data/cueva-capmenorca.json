@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/sa-cova-tancada/sa-cova-tancada-cap-menorca-3.jpg"
   ],
   "lat": 39.853889,
-  "lng": 3.191111
+  "lng": 3.191111,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-tancada.jpg"
 }

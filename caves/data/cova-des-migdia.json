@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-migdia/cova-des-migdia-8.jpg"
   ],
   "lat": 39.810221,
-  "lng": 2.717964
+  "lng": 2.717964,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-des-migdia.jpg"
 }

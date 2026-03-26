@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DETS-ESTUDIANTS/COVA-DETS-ESTUDIANTAS-2.jpg"
   ],
   "lat": 39.756884,
-  "lng": 2.711668
+  "lng": 2.711668,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-dets-estudiants.jpg"
 }

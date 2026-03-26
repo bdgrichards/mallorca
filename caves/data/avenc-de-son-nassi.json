@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/avenc-de-son-nassi/avenc-de-son-nassi-4.JPG"
   ],
   "lat": 39.699262,
-  "lng": 2.676857
+  "lng": 2.676857,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DE-SON-NASSI.jpg"
 }

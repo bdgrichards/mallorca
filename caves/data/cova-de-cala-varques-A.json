@@ -37,5 +37,6 @@
   ],
   "full_description": "Zone A\n\nCoordinates: 525388 4372304 DATUM WGS84\n\nFor a long time the entrance area was occupied by hippies, but this no longer occurs at present. A long gallery with a low ceiling connects to the flooded zone.\n\nZone C\n\nCoordinates: 525458 4372190 DATUM WGS84\n\nThe terrestrial part of the cave is the smallest of the three that make up the system, with a single chamber measuring 16 x 18 m in which some large stone blocks accumulate. It connects with the rest of the caves in the system through the flooded zone.",
   "lat": 39.500026,
-  "lng": 3.295177
+  "lng": 3.295177,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-CALA-VARQUES-ACD.jpg"
 }

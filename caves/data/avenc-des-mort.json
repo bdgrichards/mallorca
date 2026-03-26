@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/AVENC-DES-MORT/AVENC-DES-MORT-4.jpg"
   ],
   "lat": 39.566306,
-  "lng": 2.563887
+  "lng": 2.563887,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DES-MORT.jpg"
 }

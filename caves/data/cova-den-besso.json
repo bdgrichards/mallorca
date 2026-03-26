@@ -36,5 +36,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-den-besso/cova-den-besso-4.jpg"
   ],
   "lat": 39.526311,
-  "lng": 3.315382
+  "lng": 3.315382,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-den-besso.jpg"
 }

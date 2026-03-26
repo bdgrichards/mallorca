@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-diners/cova-des-diners-4.JPG"
   ],
   "lat": 39.578489,
-  "lng": 3.328904
+  "lng": 3.328904,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-DINERS.jpg"
 }

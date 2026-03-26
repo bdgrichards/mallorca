@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/ESCLETXA-DE-MARISTELLA/ESCLETXA-DE-MARISTELLA-4.JPG"
   ],
   "lat": 39.662449,
-  "lng": 2.562187
+  "lng": 2.562187,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/ESCLETXA-DE-MARISTELLA.jpg"
 }
