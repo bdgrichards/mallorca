@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mallorca Inspiration</title>
+<meta property="og:title" content="Non-Caving Day Inspiration"/>
+<meta property="og:description" content="Sa Pobla · March 21–29 2026 · Curated guide to hikes, viewpoints, hidden gems, culture & food across Mallorca"/>
+<meta property="og:image" content="https://bdgrichards.github.io/mallorca/img/27/01.jpg"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;padding:14px 10px;max-width:800px;margin:0 auto}
+h1{font-size:18px;font-weight:800;text-align:center;margin-bottom:2px}
+.sub{font-size:11px;color:#64748b;text-align:center;margin-bottom:12px}
+input{width:100%;padding:9px 11px;border-radius:10px;border:1px solid #d1d5db;font-size:13px;margin-bottom:8px;outline:none}
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.cats{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+btn,button{cursor:pointer}
+.pill{font-size:10px;padding:3px 9px;border-radius:99px;border:1px solid #d1d5db;background:#fff;color:#475569;cursor:pointer}
+.pill.active{border-width:2px;font-weight:700}
+.meta{font-size:11px;color:#94a3b8;margin-bottom:6px}
+.section-head{font-size:14px;font-weight:700;margin:0 0 6px;padding-bottom:4px}
+.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+.card.rec{border:2px solid #f59e0b}
+.card-head{cursor:pointer;display:flex;align-items:stretch;gap:0}
+.card-thumb{width:110px;min-height:80px;flex-shrink:0;background:#e5e7eb;background-size:cover;background-position:center;border-radius:9px 0 0 9px}
+.card.rec .card-thumb{border-radius:8px 0 0 8px}
+.card-info{padding:11px 12px;display:flex;align-items:center;gap:7px;flex:1;min-width:0}
+.card-title{font-weight:700;font-size:16px;color:#1e293b}
+.badge{font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;white-space:nowrap}
+.card-desc{font-size:11px;color:#64748b;margin-top:2px}
+.card-drive{font-size:10px;color:#94a3b8;margin-top:1px}
+.chevron{font-size:14px;color:#94a3b8;transition:transform 0.2s;flex-shrink:0}
+.chevron.open{transform:rotate(180deg)}
+.card-body{padding:0 12px 12px;border-top:1px solid #f1f5f9;display:none}
+.card-body.open{display:block}
+.card-body p{font-size:12px;line-height:1.6;color:#334155;margin:8px 0}
+.tip{font-size:12px;line-height:1.5;color:#1e40af;background:#eff6ff;padding:8px;border-radius:8px;margin:6px 0}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:9px;padding:2px 6px;border-radius:99px;background:#f1f5f9;color:#475569}
+.map-container{width:100%;height:180px;border-radius:8px;margin-top:8px;border:1px solid #e5e7eb;overflow:hidden}
+.btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.btn{font-size:12px;padding:10px 18px;border-radius:9px;border:1px solid #d1d5db;background:#fff;color:#1e293b;text-decoration:none;cursor:pointer;display:inline-block;font-weight:600}
+.btn.active{background:#dbeafe}
+.img-area{margin-top:10px}
+.img-wrap{position:relative;border-radius:8px;overflow:hidden;background:#f1f5f9;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.img-wrap:active{cursor:grabbing}
+.img-wrap img{width:100%;height:300px;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.img-badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,0.5);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px}
+.img-nav{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.img-dots{display:flex;gap:4px}
+.img-dot{width:8px;height:8px;border-radius:99px;background:#d1d5db;cursor:pointer}
+.img-dot.active{background:#2563eb}
+.img-src{font-size:10px;color:#64748b;display:block;margin-top:4px;text-decoration:none}
+.fullscreen{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;cursor:pointer}
+.fullscreen.open{display:flex}
+.fullscreen img{max-width:100%;max-height:85vh;object-fit:contain;border-radius:4px}
+.fs-title{color:#fff;font-size:12px;margin-top:10px;text-align:center}
+.fs-link{color:#60a5fa;font-size:11px;margin-top:4px}
+.fs-hint{color:#94a3b8;font-size:11px;margin-top:12px}
+.footer{margin-top:20px;padding:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:10px;line-height:1.7;color:#64748b}
+.empty{text-align:center;color:#94a3b8;padding:40px}
+.section-group{margin-bottom:16px}
+.view-toggle{display:flex;gap:4px;margin-bottom:10px}
+.view-btn{flex:1;padding:7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:12px;font-weight:600;color:#475569;cursor:pointer;text-align:center}
+.view-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.overview-map{width:100%;height:55vh;min-height:300px;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:10px;display:none}
+.overview-map.open{display:block}
+.map-legend{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;display:none}
+.map-legend.open{display:flex}
+.leg-item{display:flex;align-items:center;gap:3px;font-size:10px;color:#475569}
+.leg-dot{width:10px;height:10px;border-radius:99px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<h1>🌴 Non-Caving Day Inspiration</h1>
+<p class="sub">Sa Pobla · March 21–29 2026 · <span id="total"></span> places</p>
+
+<input id="search" placeholder="🔍 Search everything..." oninput="render()"/>
+<div class="filters" id="filters"></div>
+<div class="cats" id="cats"></div>
+<p class="meta" id="meta"></p>
+<div class="view-toggle" id="viewToggle"></div>
+<div class="overview-map" id="overviewMap"></div>
+<div class="map-legend" id="mapLegend"></div>
+<div id="list"></div>
+
+<div class="fullscreen" id="fs">
+  <img id="fs-img" src="" alt=""/>
+  <div class="fs-title" id="fs-title"></div>
+  <a id="fs-link" href="#" target="_blank" rel="noopener noreferrer" class="fs-link" onclick="event.stopPropagation()">View on Wikimedia Commons ↗</a>
+  <div class="fs-hint">swipe to browse · tap to close</div>
+</div>
+
+
+<script>
+const C={hk:"Hikes & Walks",vw:"Viewpoints & Photos",cv:"Casual Caves & Underground",hd:"Hidden Gems & Oddities",ge:"Geology & Nature",hi:"History & Archaeology",cu:"Culture & Museums",fd:"Food & Drink",ev:"Events & Festivals"};
+const CC={ev:"#dc2626",hk:"#059669",cv:"#92400e",ge:"#7c3aed",hi:"#b45309",cu:"#0891b2",fd:"#e11d48",vw:"#2563eb",hd:"#6d28d9"};
+const DC={"Easy":"#16a34a","Moderate":"#ca8a04","Hard":"#dc2626","Free":"#059669","Paid":"#7c3aed","—":"#94a3b8"};
+const RECOMMENDED=new Set([20,21,23,28,30,31]);
+
+let I=[];
+
+document.getElementById('total').textContent = '…';
+
+let state = { q:'', cat:'all', showRec:false, expanded:{}, showMap:{}, view:'list' };
+const maps = {};
+let overviewMap=null, overviewMarkers=[];
+let IMG_DATA={};
+
+function buildFilters(){
+  const f=document.getElementById('filters');
+  f.innerHTML='';
+  const recBtn=document.createElement('button');
+  recBtn.className='pill'+(state.showRec?' active':'');
+  recBtn.style.borderColor='#f59e0b';
+  if(state.showRec){recBtn.style.background='#fef3c7';recBtn.style.color='#92400e';}
+  recBtn.textContent=`⭐ Recommended (${RECOMMENDED.size})`;
+  recBtn.onclick=()=>{state.showRec=!state.showRec;state.cat='all';render();};
+  f.appendChild(recBtn);
+
+  const allBtn=document.createElement('button');
+  allBtn.className='pill'+(!state.showRec&&state.cat==='all'?' active':'');
+  if(!state.showRec&&state.cat==='all'){allBtn.style.background='#0f172a';allBtn.style.color='#fff';allBtn.style.borderColor='#0f172a';}
+  allBtn.textContent='All';
+  allBtn.onclick=()=>{state.cat='all';state.showRec=false;render();};
+  f.appendChild(allBtn);
+
+  const cats=document.getElementById('cats');
+  cats.innerHTML='';
+  Object.entries(C).forEach(([k,v])=>{
+    const cnt=I.filter(i=>i.c===k).length;
+    const b=document.createElement('button');
+    b.className='pill'+(state.cat===k?' active':'');
+    if(state.cat===k){b.style.borderColor=CC[k];b.style.background=CC[k]+'22';b.style.color=CC[k];}
+    b.textContent=v.split('&')[0].split(' ')[0]+' '+cnt;
+    b.onclick=()=>{state.cat=state.cat===k?'all':k;state.showRec=false;render();};
+    cats.appendChild(b);
+  });
+}
+
+function filtered(){
+  let r=I;
+  if(state.showRec) r=r.filter(i=>RECOMMENDED.has(i.id));
+  if(state.cat!=='all') r=r.filter(i=>i.c===state.cat);
+  if(state.q){const s=state.q.toLowerCase();r=r.filter(i=>i.n.toLowerCase().includes(s)||i.d.toLowerCase().includes(s)||(i.dt||'').toLowerCase().includes(s)||i.tg.some(t=>t.includes(s)));}
+  return r;
+}
+
+function buildViewToggle(){
+  const vt=document.getElementById('viewToggle');
+  vt.innerHTML='';
+  ['list','map'].forEach(v=>{
+    const b=document.createElement('button');
+    b.className='view-btn'+(state.view===v?' active':'');
+    b.textContent=v==='list'?'📋 List View':'🗺️ Map View';
+    b.onclick=()=>{state.view=v;render();};
+    vt.appendChild(b);
+  });
+}
+
+function buildLegend(){
+  const leg=document.getElementById('mapLegend');
+  leg.innerHTML='';
+  Object.entries(C).forEach(([k,v])=>{
+    const el=document.createElement('div');
+    el.className='leg-item';
+    const dot=document.createElement('span');
+    dot.className='leg-dot';
+    dot.style.background=CC[k];
+    el.appendChild(dot);
+    const lbl=document.createElement('span');
+    lbl.textContent=v.split('&')[0].trim();
+    el.appendChild(lbl);
+    leg.appendChild(el);
+  });
+}
+
+function updateOverviewMap(items){
+  const mapEl=document.getElementById('overviewMap');
+  if(!overviewMap){
+    overviewMap=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([39.7,2.95],9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(overviewMap);
+  }
+  overviewMarkers.forEach(m=>overviewMap.removeLayer(m));
+  overviewMarkers=[];
+  if(!items.length) return;
+  const bounds=[];
+  items.forEach(i=>{
+    const color=CC[i.c];
+    const isRec=RECOMMENDED.has(i.id);
+    const m=L.circleMarker([i.lat,i.lng],{
+      radius:isRec?9:7,
+      fillColor:color,
+      color:'#fff',
+      weight:isRec?2.5:1.5,
+      fillOpacity:0.9
+    }).addTo(overviewMap);
+    const popup=`<div style="min-width:160px">
+      <div style="font-weight:700;font-size:12px;margin-bottom:3px">${isRec?'⭐ ':''}${i.n}</div>
+      <div style="font-size:10px;color:${color};margin-bottom:3px">${C[i.c]}</div>
+      <div style="font-size:10px;color:#64748b;margin-bottom:5px">🚗 ${i.dr}</div>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${i.lat},${i.lng}" target="_blank" rel="noopener noreferrer" style="font-size:10px;color:#2563eb">🧭 Directions</a>
+      <span style="margin:0 4px;color:#d1d5db">|</span>
+      <a href="#" onclick="event.preventDefault();state.view='list';render();setTimeout(()=>{toggleCard(${i.id});document.getElementById('card-${i.id}').scrollIntoView({behavior:'smooth',block:'center'})},100)" style="font-size:10px;color:#2563eb">📋 Details</a>
+    </div>`;
+    m.bindPopup(popup);
+    overviewMarkers.push(m);
+    bounds.push([i.lat,i.lng]);
+  });
+  if(bounds.length) overviewMap.fitBounds(bounds,{padding:[30,30],maxZoom:13});
+}
+
+function render(){
+  buildFilters();
+  buildViewToggle();
+  const items=filtered();
+  document.getElementById('meta').textContent=`${items.length} items · ⭐ = recommended · expand for photos, map & details`;
+
+  const mapEl=document.getElementById('overviewMap');
+  const legEl=document.getElementById('mapLegend');
+  const list=document.getElementById('list');
+
+  if(state.view==='map'){
+    mapEl.classList.add('open');
+    legEl.classList.add('open');
+    list.style.display='none';
+    buildLegend();
+    setTimeout(()=>{
+      if(overviewMap) overviewMap.invalidateSize();
+      updateOverviewMap(items);
+    },50);
+  } else {
+    mapEl.classList.remove('open');
+    legEl.classList.remove('open');
+    list.style.display='';
+    list.innerHTML='';
+
+    if(!items.length){list.innerHTML='<p class="empty">No items match your filters.</p>';return;}
+
+    const grouped = (state.cat==='all' && !state.showRec);
+    if(grouped){
+      Object.entries(C).forEach(([k,v])=>{
+        const grp=items.filter(i=>i.c===k);
+        if(!grp.length) return;
+        const sec=document.createElement('div');
+        sec.className='section-group';
+        const h=document.createElement('h2');
+        h.className='section-head';
+        h.style.color=CC[k];
+        h.style.borderBottom=`2px solid ${CC[k]}25`;
+        h.textContent=`${v} (${grp.length})`;
+        sec.appendChild(h);
+        grp.forEach(i=>sec.appendChild(makeCard(i)));
+        list.appendChild(sec);
+      });
+    } else {
+      items.forEach(i=>list.appendChild(makeCard(i)));
+    }
+  }
+}
+
+function makeCard(i){
+  const isRec=RECOMMENDED.has(i.id);
+  const isExp=state.expanded[i.id];
+
+  const card=document.createElement('div');
+  card.className='card'+(isRec?' rec':'');
+  card.id='card-'+i.id;
+
+  const head=document.createElement('div');
+  head.className='card-head';
+  head.onclick=()=>toggleCard(i.id);
+
+  const thumbImgs=(IMG_DATA[String(i.id)]||[]);
+  if(thumbImgs.length){
+    const thumb=document.createElement('div');
+    thumb.className='card-thumb';
+    thumb.style.backgroundImage=`url(${thumbImgs[0].thumb})`;
+    head.appendChild(thumb);
+  }
+
+  const infoWrap=document.createElement('div');
+  infoWrap.className='card-info';
+
+  if(isRec){
+    const star=document.createElement('span');
+    star.textContent='⭐';
+    star.style.cssText='font-size:17px;flex-shrink:0;line-height:1';
+    infoWrap.appendChild(star);
+  }
+
+  const info=document.createElement('div');
+  info.style.cssText='flex:1;min-width:0';
+
+  const title=document.createElement('div');
+  title.className='card-title';
+  title.textContent=i.n;
+  info.appendChild(title);
+
+  const badgeRow=document.createElement('div');
+  badgeRow.style.cssText='display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:3px';
+
+  const catBadge=document.createElement('span');
+  catBadge.className='badge';
+  catBadge.style.cssText=`background:${CC[i.c]}18;color:${CC[i.c]}`;
+  catBadge.textContent=C[i.c];
+  badgeRow.appendChild(catBadge);
+
+  if(i.df&&i.df!=='—'){
+    const dfBadge=document.createElement('span');
+    dfBadge.className='badge';
+    dfBadge.style.cssText=`background:${DC[i.df]||'#888'};color:#fff`;
+    dfBadge.textContent=i.df;
+    badgeRow.appendChild(dfBadge);
+  }
+  info.appendChild(badgeRow);
+
+  const desc=document.createElement('div');
+  desc.className='card-desc';
+  desc.textContent=i.d.substring(0,90)+(i.d.length>90?'…':'');
+  info.appendChild(desc);
+
+  const drive=document.createElement('div');
+  drive.className='card-drive';
+  drive.textContent='🚗 '+i.dr;
+  info.appendChild(drive);
+
+  infoWrap.appendChild(info);
+
+  const chev=document.createElement('span');
+  chev.className='chevron'+(isExp?' open':'');
+  chev.id='chev-'+i.id;
+  chev.textContent='▼';
+  infoWrap.appendChild(chev);
+  head.appendChild(infoWrap);
+  card.appendChild(head);
+
+  const body=document.createElement('div');
+  body.className='card-body'+(isExp?' open':'');
+  body.id='body-'+i.id;
+
+  const fullDesc=document.createElement('p');
+  fullDesc.textContent=i.d;
+  body.appendChild(fullDesc);
+
+  if(i.dt){
+    const tip=document.createElement('p');
+    tip.className='tip';
+    tip.textContent='💡 '+i.dt;
+    body.appendChild(tip);
+  }
+
+  const tags=document.createElement('div');
+  tags.className='tags';
+  i.tg.forEach(t=>{
+    const tg=document.createElement('span');
+    tg.className='tag';
+    tg.textContent='#'+t;
+    tags.appendChild(tg);
+  });
+  body.appendChild(tags);
+
+  const imgArea=document.createElement('div');
+  imgArea.className='img-area';
+  imgArea.id='imgs-'+i.id;
+  if(isExp) loadImgs(i, imgArea);
+  body.appendChild(imgArea);
+
+  const mapWrap=document.createElement('div');
+  mapWrap.className='map-container';
+  mapWrap.id='map-'+i.id;
+  body.appendChild(mapWrap);
+
+  const btns=document.createElement('div');
+  btns.className='btns';
+  const dirBtn=document.createElement('a');
+  dirBtn.className='btn';
+  dirBtn.href=`https://www.google.com/maps/dir/?api=1&destination=${i.lat},${i.lng}`;
+  dirBtn.target='_blank';
+  dirBtn.rel='noopener noreferrer';
+  dirBtn.textContent='🧭 Get Directions';
+  const gBtn=document.createElement('a');
+  gBtn.className='btn';
+  gBtn.href=`https://www.google.com/search?q=${encodeURIComponent(i.n+' Mallorca')}`;
+  gBtn.target='_blank';
+  gBtn.rel='noopener noreferrer';
+  gBtn.textContent='🔍 Google Search';
+  btns.appendChild(dirBtn);
+  btns.appendChild(gBtn);
+  body.appendChild(btns);
+
+  card.appendChild(body);
+
+  if(isExp) setTimeout(()=>initMap(i), 50);
+
+  return card;
+}
+
+function toggleCard(id){
+  state.expanded[id]=!state.expanded[id];
+  const body=document.getElementById('body-'+id);
+  const chev=document.getElementById('chev-'+id);
+  if(!body) return;
+  body.classList.toggle('open', state.expanded[id]);
+  chev.classList.toggle('open', state.expanded[id]);
+  if(state.expanded[id]){
+    const item=I.find(i=>i.id===id);
+    const imgArea=document.getElementById('imgs-'+id);
+    if(imgArea&&!imgArea.dataset.loaded) loadImgs(item, imgArea);
+    setTimeout(()=>initMap(item), 100);
+  }
+}
+
+function initMap(item){
+  const id='map-'+item.id;
+  if(maps[id]) return;
+  const el=document.getElementById(id);
+  if(!el) return;
+  const m=L.map(el,{zoomControl:true,scrollWheelZoom:false}).setView([item.lat,item.lng],13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(m);
+  L.marker([item.lat,item.lng]).addTo(m).bindPopup(item.n).openPopup();
+  maps[id]=m;
+}
+
+function imgCredit(cur){
+  if(cur.page) return `<a href="${cur.page}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — Wikimedia Commons</a>`;
+  if(cur.source) return `<a href="${cur.source}" target="_blank" rel="noopener noreferrer" class="img-src">📷 ${cur.title.substring(0,60)} — ${cur.credit||'Source'}</a>`;
+  return `<span class="img-src">📷 ${cur.title.substring(0,60)}</span>`;
+}
+
+function imgHtml(cur,item,imgs,idx){
+  return `
+    <div class="img-wrap">
+      <img src="${cur.thumb}" alt="${cur.title}" style="width:100%;height:300px;object-fit:cover;display:block"/>
+      <div class="img-badge">${idx+1}/${imgs.length}</div>
+    </div>
+    <div class="img-nav">
+      <button class="btn" onclick="imgNav(this,${item.id},-1)">‹</button>
+      <div class="img-dots">${imgs.map((_,i)=>`<span class="img-dot${i===idx?' active':''}" onclick="imgGo(this,${item.id},${i})"></span>`).join('')}</div>
+      <button class="btn" onclick="imgNav(this,${item.id},1)">›</button>
+    </div>
+    ${imgCredit(cur)}
+  `;
+}
+
+function makeDraggable(el,onSwipe,onClick){
+  let x0=null,y0=null,swiped=false,pointerId=null;
+  function down(x,y,pid){x0=x;y0=y;swiped=false;pointerId=pid;}
+  function move(x,y,e){
+    if(x0===null) return;
+    const dx=x-x0,dy=y-y0;
+    if(!swiped&&Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>15){swiped=true;if(e.cancelable)e.preventDefault();}
+  }
+  function up(x){
+    if(x0===null) return;
+    const dx=x-x0;x0=null;y0=null;pointerId=null;
+    if(!swiped) return false;
+    if(dx<-30) onSwipe(1);
+    else if(dx>30) onSwipe(-1);
+    return true;
+  }
+  el.addEventListener('mousedown',function(e){if(e.button===0){down(e.clientX,e.clientY,'m');e.preventDefault();}});
+  el.addEventListener('mousemove',function(e){if(pointerId==='m')move(e.clientX,e.clientY,e);});
+  el.addEventListener('mouseup',function(e){if(pointerId==='m'&&!up(e.clientX)&&onClick)onClick(e);});
+  el.addEventListener('touchstart',function(e){down(e.touches[0].clientX,e.touches[0].clientY,'t');},{passive:true});
+  el.addEventListener('touchmove',function(e){if(pointerId==='t')move(e.touches[0].clientX,e.touches[0].clientY,e);},{passive:false});
+  el.addEventListener('touchend',function(e){if(pointerId==='t')up(e.changedTouches[0].clientX);},{passive:true});
+  el.style.cursor='grab';
+}
+
+function attachSwipe(el,id){
+  const wrap=el.querySelector('.img-wrap');
+  if(!wrap) return;
+  makeDraggable(wrap,function(dir){window.imgNav(null,id,dir);},function(e){
+    const cur=(el._imgs||[])[el._idx||0];
+    if(cur) openFull(cur);
+  });
+}
+
+function loadImgs(item, el){
+  el.dataset.loaded='1';
+  const imgs=IMG_DATA[String(item.id)]||[];
+  if(!imgs.length){el.innerHTML='<div style="padding:10px;text-align:center;color:#94a3b8;font-size:11px">No images available.</div>';return;}
+  el.innerHTML=imgHtml(imgs[0],item,imgs,0);
+  el._imgs=imgs;el._idx=0;
+  attachSwipe(el,item.id);
+}
+
+window.imgNav=function(btn,id,dir){
+  const el=document.getElementById('imgs-'+id);
+  if(!el||!el._imgs) return;
+  el._idx=(el._idx+dir+el._imgs.length)%el._imgs.length;
+  const imgs=el._imgs; const idx=el._idx; const cur=imgs[idx];
+  const item=I.find(i=>i.id===id);
+  el.innerHTML=imgHtml(cur,item,imgs,idx);
+  el._imgs=imgs;el._idx=idx;
+  attachSwipe(el,id);
+};
+
+window.imgGo=function(btn,id,i){
+  const el=document.getElementById('imgs-'+id);
+  if(!el||!el._imgs) return;
+  el._idx=i;
+  const imgs=el._imgs; const cur=imgs[i];
+  const item=I.find(x=>x.id===id);
+  el.innerHTML=imgHtml(cur,item,imgs,i);
+  el._imgs=imgs;el._idx=i;
+  attachSwipe(el,id);
+};
+
+let fsCtx=null;
+function showFullImg(){
+  if(!fsCtx) return;
+  const cur=fsCtx.imgs[fsCtx.idx];
+  document.getElementById('fs-img').src=cur.full||cur.thumb;
+  document.getElementById('fs-title').textContent=cur.title+' ('+(fsCtx.idx+1)+'/'+fsCtx.imgs.length+')';
+  const link=document.getElementById('fs-link');
+  const src=cur.page||cur.source||'';
+  link.href=src;
+  link.textContent=src?('View source: '+(cur.credit||'Wikimedia Commons')+' ↗'):'';
+  link.style.display=src?'':'none';
+}
+
+window.openFull=function(cur){
+  if(typeof cur==='string') cur=JSON.parse(cur);
+  const allAreas=document.querySelectorAll('.img-area');
+  for(const a of allAreas){
+    if(a._imgs){
+      const i=a._imgs.findIndex(im=>(im.thumb===cur.thumb&&im.title===cur.title));
+      if(i>=0){fsCtx={imgs:a._imgs,idx:i,areaId:a.id.replace('imgs-','')};break;}
+    }
+  }
+  if(!fsCtx) fsCtx={imgs:[cur],idx:0,areaId:null};
+  showFullImg();
+  document.getElementById('fs').classList.add('open');
+};
+
+window.closeFull=function(){
+  document.getElementById('fs').classList.remove('open');
+  fsCtx=null;
+};
+
+(function(){
+  const fs=document.getElementById('fs');
+  makeDraggable(fs,function(dir){
+    if(!fsCtx||fsCtx.imgs.length<2) return;
+    fsCtx.idx=(fsCtx.idx+dir+fsCtx.imgs.length)%fsCtx.imgs.length;
+    showFullImg();
+    if(fsCtx.areaId) window.imgGo(null,parseInt(fsCtx.areaId),fsCtx.idx);
+  },function(){closeFull();});
+  fs.style.cursor='';
+})();
+
+document.getElementById('search').addEventListener('input',e=>{state.q=e.target.value;render();});
+
+Promise.all([
+  fetch('items.json').then(r=>r.json()),
+  fetch('images.json').then(r=>r.json()).catch(()=>({}))
+]).then(([items, imgs])=>{
+  I=items;
+  IMG_DATA=imgs;
+  document.getElementById('total').textContent=I.length;
+  render();
+}).catch(err=>{console.error('Failed to load data:',err);render();});
+</script>
+</body>
+</html>

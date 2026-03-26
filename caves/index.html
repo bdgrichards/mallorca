@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Caves of Mallorca</title>
+<meta property="og:title" content="Caves of Mallorca"/>
+<meta property="og:description" content="116 caves and sinkholes from Mallorca Verde, translated to English with ratings, difficulty and search"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b;padding:14px 10px;max-width:900px;margin:0 auto}
+a{color:#2563eb;text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:20px;font-weight:800;text-align:center;margin-bottom:2px}
+h2{font-size:18px;font-weight:700;margin:0 0 8px}
+.sub{font-size:11px;color:#64748b;text-align:center;margin-bottom:14px}
+.home{text-align:center;margin-bottom:12px;font-size:12px}
+input[type=text]{width:100%;padding:9px 11px;border-radius:10px;border:1px solid #d1d5db;font-size:13px;margin-bottom:8px;outline:none}
+.controls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;align-items:center}
+.controls label{font-size:11px;color:#64748b;font-weight:600}
+select{padding:5px 8px;border-radius:8px;border:1px solid #d1d5db;font-size:12px;background:#fff;color:#1e293b;cursor:pointer}
+.pills{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.pill{font-size:10px;padding:3px 9px;border-radius:99px;border:1px solid #d1d5db;background:#fff;color:#475569;cursor:pointer;white-space:nowrap}
+.pill.active{border-color:#2563eb;background:#dbeafe;color:#1e40af;font-weight:700}
+.meta{font-size:11px;color:#94a3b8;margin-bottom:10px}
+.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04);cursor:pointer;transition:box-shadow 0.15s}
+.card:hover{box-shadow:0 3px 8px rgba(0,0,0,0.08)}
+.card-head{padding:12px 14px;display:flex;align-items:center;gap:10px}
+.card-name{font-weight:700;font-size:14px;flex:1;min-width:0}
+.card-name small{font-weight:400;color:#64748b;font-size:11px;display:block;margin-top:1px}
+.badges{display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap}
+.badge{font-size:9px;padding:2px 6px;border-radius:99px;font-weight:600;white-space:nowrap}
+.badge-aes{background:#fef3c7;color:#92400e}
+.badge-diff{color:#fff}
+.badge-mag{background:#e0e7ff;color:#3730a3}
+.badge-mun{background:#f0fdf4;color:#166534}
+.stars{letter-spacing:1px}
+.empty{text-align:center;color:#94a3b8;padding:40px}
+.rating-legend{font-size:10px;color:#94a3b8;margin-bottom:10px;line-height:1.6}
+
+/* View toggle */
+.view-toggle{display:flex;gap:4px;margin-bottom:10px}
+.view-btn{flex:1;padding:7px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:12px;font-weight:600;color:#475569;cursor:pointer;text-align:center}
+.view-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.overview-map{width:100%;height:55vh;min-height:300px;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:10px;display:none}
+.overview-map.open{display:block}
+.map-legend{display:none;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-size:10px;color:#475569}
+.map-legend.open{display:flex}
+.leg-item{display:flex;align-items:center;gap:3px}
+.leg-dot{width:10px;height:10px;border-radius:99px;flex-shrink:0}
+
+/* Detail page map */
+.cave-map{width:100%;height:250px;border-radius:10px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:12px}
+.map-btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.map-btn{font-size:12px;padding:8px 14px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#1e293b;text-decoration:none;cursor:pointer;display:inline-block;font-weight:600}
+.map-btn:hover{background:#f1f5f9}
+
+/* Detail page */
+.detail-page{display:none}
+.detail-page.open{display:block}
+.list-page.hidden{display:none}
+.back-btn{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#2563eb;cursor:pointer;padding:8px 0;margin-bottom:12px;border:none;background:none}
+.back-btn:hover{text-decoration:underline}
+.detail-header{margin-bottom:16px}
+.detail-header h2{font-size:22px;margin-bottom:2px}
+.detail-header .eng-name{font-size:14px;color:#64748b;font-weight:400;margin-bottom:8px}
+.detail-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.detail-badges .badge{font-size:11px;padding:3px 8px}
+.img-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:16px}
+.img-gallery img{width:100%;height:180px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb;cursor:pointer;transition:transform 0.15s}
+.img-gallery img:hover{transform:scale(1.02)}
+.detail-section{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin-bottom:12px}
+.detail-section h3{font-size:14px;font-weight:700;margin-bottom:10px;color:#0f172a}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;font-size:13px}
+.detail-grid dt{color:#64748b;font-weight:600}
+.detail-grid dd{color:#1e293b;margin:0 0 6px}
+.desc-full{font-size:13px;line-height:1.8;color:#334155;white-space:pre-line}
+.equip-box{font-size:12px;line-height:1.6;color:#1e40af;background:#eff6ff;padding:10px 12px;border-radius:8px;margin-top:8px}
+.source-link{font-size:12px;margin-top:12px;padding:10px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0}
+
+/* Fullscreen image viewer */
+.fs-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:9999;display:none;align-items:center;justify-content:center;cursor:pointer;padding:16px}
+.fs-overlay.open{display:flex}
+.fs-overlay img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:4px}
+
+@media(max-width:600px){
+  .detail-grid{grid-template-columns:1fr}
+  .img-gallery{grid-template-columns:1fr 1fr}
+  .img-gallery img{height:140px}
+}
+</style>
+</head>
+<body>
+
+<!-- LIST VIEW -->
+<div class="list-page" id="listPage">
+<p class="home"><a href="../">← Back to home</a></p>
+<h1>Caves of Mallorca</h1>
+<p class="sub">Data from <a href="http://www.mallorcaverde.es/menu-espeleo.htm" target="_blank">Mallorca Verde</a> · <span id="total">…</span> caves · translated to English</p>
+
+<input type="text" id="search" placeholder="Search caves by name, municipality, description..."/>
+
+<div class="controls">
+  <label>Sort:</label>
+  <select id="sortBy">
+    <option value="name">Name</option>
+    <option value="aesthetics-desc">Aesthetics (high first)</option>
+    <option value="aesthetics-asc">Aesthetics (low first)</option>
+    <option value="difficulty-desc">Difficulty (hard first)</option>
+    <option value="difficulty-asc">Difficulty (easy first)</option>
+    <option value="magnitude-desc">Magnitude (high first)</option>
+    <option value="magnitude-asc">Magnitude (low first)</option>
+    <option value="municipality">Municipality</option>
+  </select>
+  <label style="margin-left:8px">Min Aesthetics:</label>
+  <select id="minAes">
+    <option value="0">Any</option>
+    <option value="1">1+</option>
+    <option value="2">2+</option>
+    <option value="3">3+</option>
+    <option value="4">4+</option>
+    <option value="5">5 only</option>
+  </select>
+  <label style="margin-left:8px">Max Difficulty:</label>
+  <select id="maxDiff">
+    <option value="99">Any</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>
+</div>
+
+<div class="pills" id="munPills"></div>
+<p class="meta" id="meta"></p>
+<div class="view-toggle" id="viewToggle">
+  <button class="view-btn active" id="btnList" onclick="setView('list')">List View</button>
+  <button class="view-btn" id="btnMap" onclick="setView('map')">Map View</button>
+</div>
+<div class="overview-map" id="overviewMap"></div>
+<div class="map-legend" id="mapLegend"></div>
+<div class="rating-legend" id="ratingLegend">
+  Aesthetics: 1 = no formations · 2 = worth visiting · 3 = some formations · 4 = rich formations · 5 = awe-inspiring &nbsp;|&nbsp;
+  Difficulty: I = flat walk · II = hands · III = some rope · IV = ropes · V = vertical ≤15m · VI = vertical 16-100m · VII = vertical 100m+
+</div>
+<div id="list"></div>
+</div>
+
+<!-- DETAIL VIEW -->
+<div class="detail-page" id="detailPage"></div>
+
+<!-- FULLSCREEN IMAGE -->
+<div class="fs-overlay" id="fsOverlay" onclick="closeFsImg()">
+  <img id="fsImg" src="" alt=""/>
+</div>
+
+<script>
+let caves=[];
+let state={q:'',sort:'name',minAes:0,maxDiff:99,mun:'all',view:'list'};
+let overviewMap=null, overviewMarkers=[];
+const DIFF_COLORS={1:'#16a34a',2:'#65a30d',3:'#ca8a04',4:'#ea580c',5:'#dc2626',6:'#b91c1c',7:'#7f1d1d'};
+const AES_COLORS={1:'#94a3b8',2:'#65a30d',3:'#ca8a04',4:'#ea580c',5:'#dc2626'};
+function diffColor(v){return DIFF_COLORS[v]||'#94a3b8'}
+function aesColor(v){return AES_COLORS[v]||'#94a3b8'}
+function aesStars(n){if(!n)return'—';return'<span class="stars">'+'★'.repeat(n)+'☆'.repeat(5-n)+'</span>';}
+
+function getMunicipalities(){
+  const s=new Set();
+  caves.forEach(c=>{if(c.municipality)s.add(c.municipality);});
+  return[...s].sort();
+}
+
+function buildMunPills(){
+  const el=document.getElementById('munPills');
+  el.innerHTML='';
+  const allBtn=document.createElement('button');
+  allBtn.className='pill'+(state.mun==='all'?' active':'');
+  allBtn.textContent='All';
+  allBtn.onclick=()=>{state.mun='all';renderList();};
+  el.appendChild(allBtn);
+  getMunicipalities().forEach(m=>{
+    const cnt=caves.filter(c=>c.municipality===m).length;
+    const b=document.createElement('button');
+    b.className='pill'+(state.mun===m?' active':'');
+    b.textContent=m+' ('+cnt+')';
+    b.onclick=()=>{state.mun=state.mun===m?'all':m;renderList();};
+    el.appendChild(b);
+  });
+}
+
+function filtered(){
+  let r=caves;
+  if(state.mun!=='all')r=r.filter(c=>c.municipality===state.mun);
+  if(state.minAes>0)r=r.filter(c=>c.aesthetics&&c.aesthetics>=state.minAes);
+  if(state.maxDiff<99)r=r.filter(c=>c.difficulty_value&&c.difficulty_value<=state.maxDiff);
+  if(state.q){const s=state.q.toLowerCase();r=r.filter(c=>(c.name||'').toLowerCase().includes(s)||(c.name_english||'').toLowerCase().includes(s)||(c.municipality||'').toLowerCase().includes(s)||(c.description||'').toLowerCase().includes(s)||(c.route_type||'').toLowerCase().includes(s));}
+  r=[...r];
+  const sort=state.sort;
+  if(sort==='name')r.sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+  else if(sort==='municipality')r.sort((a,b)=>(a.municipality||'').localeCompare(b.municipality||'')||(a.name||'').localeCompare(b.name||''));
+  else if(sort==='aesthetics-desc')r.sort((a,b)=>(b.aesthetics||0)-(a.aesthetics||0));
+  else if(sort==='aesthetics-asc')r.sort((a,b)=>(a.aesthetics||0)-(b.aesthetics||0));
+  else if(sort==='difficulty-desc')r.sort((a,b)=>(b.difficulty_value||0)-(a.difficulty_value||0));
+  else if(sort==='difficulty-asc')r.sort((a,b)=>(a.difficulty_value||0)-(b.difficulty_value||0));
+  else if(sort==='magnitude-desc')r.sort((a,b)=>(b.magnitude_value||0)-(a.magnitude_value||0));
+  else if(sort==='magnitude-asc')r.sort((a,b)=>(a.magnitude_value||0)-(b.magnitude_value||0));
+  return r;
+}
+
+function setView(v){
+  state.view=v;
+  document.getElementById('btnList').className='view-btn'+(v==='list'?' active':'');
+  document.getElementById('btnMap').className='view-btn'+(v==='map'?' active':'');
+  renderList();
+}
+
+function buildOverviewMap(items){
+  const mapEl=document.getElementById('overviewMap');
+  const legEl=document.getElementById('mapLegend');
+  if(state.view!=='map'){mapEl.classList.remove('open');legEl.classList.remove('open');return;}
+  mapEl.classList.add('open');
+  legEl.classList.add('open');
+
+  legEl.innerHTML='';
+  [{l:'Aes 5',c:'#dc2626'},{l:'Aes 4',c:'#ea580c'},{l:'Aes 3',c:'#ca8a04'},{l:'Aes 2',c:'#65a30d'},{l:'Aes 1',c:'#94a3b8'}].forEach(x=>{
+    legEl.innerHTML+='<span class="leg-item"><span class="leg-dot" style="background:'+x.c+'"></span>'+x.l+'</span>';
+  });
+
+  if(!overviewMap){
+    overviewMap=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([39.65,2.95],9);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(overviewMap);
+  }
+  setTimeout(()=>overviewMap.invalidateSize(),50);
+
+  overviewMarkers.forEach(m=>overviewMap.removeLayer(m));
+  overviewMarkers=[];
+  const bounds=[];
+  items.forEach(c=>{
+    if(!c.lat||!c.lng)return;
+    const color=aesColor(c.aesthetics);
+    const r=c.aesthetics>=4?9:c.aesthetics>=3?7:6;
+    const m=L.circleMarker([c.lat,c.lng],{radius:r,fillColor:color,color:'#fff',weight:1.5,fillOpacity:0.85}).addTo(overviewMap);
+    m.bindPopup('<div style="min-width:180px"><div style="font-weight:700;font-size:12px;margin-bottom:3px">'+c.name+'</div>'
+      +'<div style="font-size:10px;color:#64748b;margin-bottom:2px">'+aesStars(c.aesthetics)+' · Diff '+(c.difficulty_value||'?')+'</div>'
+      +'<div style="font-size:10px;color:#64748b;margin-bottom:5px">'+(c.municipality||'')+(c.depth?' · '+c.depth:'')+'</div>'
+      +'<a href="#'+c.id+'" style="font-size:10px;color:#2563eb">View details →</a>'
+      +(c.lat?'<span style="margin:0 4px;color:#d1d5db">|</span><a href="https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lng+'" target="_blank" rel="noopener" style="font-size:10px;color:#2563eb">Directions ↗</a>':'')
+      +'</div>');
+    overviewMarkers.push(m);
+    bounds.push([c.lat,c.lng]);
+  });
+  if(bounds.length)setTimeout(()=>overviewMap.fitBounds(bounds,{padding:[30,30],maxZoom:13}),100);
+}
+
+function makeCard(c){
+  const dv=c.difficulty_value;
+  const dc=diffColor(dv);
+  let h='<div class="card" onclick="showCave(\''+c.id+'\')">';
+  h+='<div class="card-head">';
+  h+='<div class="card-name">'+c.name+(c.name_english?'<small>'+c.name_english+'</small>':'')+'</div>';
+  h+='<div class="badges">';
+  if(c.aesthetics)h+='<span class="badge badge-aes" title="Aesthetics '+c.aesthetics+'/5">'+aesStars(c.aesthetics)+'</span>';
+  if(dv)h+='<span class="badge badge-diff" style="background:'+dc+'" title="Difficulty '+dv+'">Diff '+dv+'</span>';
+  if(c.municipality)h+='<span class="badge badge-mun">'+c.municipality+'</span>';
+  h+='</div></div></div>';
+  return h;
+}
+
+function renderList(){
+  buildMunPills();
+  const items=filtered();
+  document.getElementById('meta').textContent=items.length+' caves shown';
+  const list=document.getElementById('list');
+  const legend=document.getElementById('ratingLegend');
+
+  if(state.view==='map'){
+    list.style.display='none';
+    legend.style.display='none';
+    buildOverviewMap(items);
+  } else {
+    list.style.display='';
+    legend.style.display='';
+    document.getElementById('overviewMap').classList.remove('open');
+    document.getElementById('mapLegend').classList.remove('open');
+    if(!items.length){list.innerHTML='<p class="empty">No caves match your filters.</p>';return;}
+    list.innerHTML=items.map(makeCard).join('');
+  }
+}
+
+function field(label,val){
+  if(!val)return'';
+  return'<dt>'+label+'</dt><dd>'+escHtml(String(val))+'</dd>';
+}
+
+function escHtml(s){
+  const d=document.createElement('div');
+  d.textContent=s;
+  return d.innerHTML;
+}
+
+function showCave(id){
+  location.hash=id;
+}
+
+function renderDetail(id){
+  const c=caves.find(x=>x.id===id);
+  if(!c){location.hash='';return;}
+  document.getElementById('listPage').classList.add('hidden');
+  const dp=document.getElementById('detailPage');
+  dp.classList.add('open');
+
+  const dv=c.difficulty_value;
+  const dc=diffColor(dv);
+  const imgs=c.images||[];
+  const desc=c.full_description||c.description||'';
+
+  let h='<button class="back-btn" onclick="location.hash=\'\'">← Back to cave list</button>';
+  h+='<div class="detail-header">';
+  h+='<h2>'+escHtml(c.name)+'</h2>';
+  if(c.name_english)h+='<div class="eng-name">'+escHtml(c.name_english)+'</div>';
+  h+='<div class="detail-badges">';
+  if(c.aesthetics)h+='<span class="badge badge-aes">Aesthetics: '+aesStars(c.aesthetics)+' ('+c.aesthetics+'/5)</span>';
+  if(dv)h+='<span class="badge badge-diff" style="background:'+dc+'">Difficulty: '+dv+'</span>';
+  if(c.magnitude)h+='<span class="badge badge-mag">Magnitude: '+escHtml(c.magnitude)+'</span>';
+  if(c.municipality)h+='<span class="badge badge-mun">'+escHtml(c.municipality)+'</span>';
+  h+='</div></div>';
+
+  if(imgs.length){
+    h+='<div class="img-gallery">';
+    imgs.forEach(url=>{
+      h+='<img src="'+url+'" alt="Cave photo" loading="lazy" onclick="openFsImg(\''+url+'\')" onerror="this.style.display=\'none\'">';
+    });
+    h+='</div>';
+  }
+
+  if(c.lat&&c.lng){
+    h+='<div class="cave-map" id="caveMap-'+c.id+'"></div>';
+    h+='<div class="map-btns">';
+    h+='<a class="map-btn" href="https://www.google.com/maps/dir/?api=1&destination='+c.lat+','+c.lng+'" target="_blank" rel="noopener">🧭 Get Directions</a>';
+    h+='<a class="map-btn" href="https://www.google.com/maps/@'+c.lat+','+c.lng+',15z" target="_blank" rel="noopener">🗺️ Google Maps</a>';
+    h+='</div>';
+  }
+
+  h+='<div class="detail-section"><h3>Details</h3><dl class="detail-grid">';
+  h+=field('Municipality',c.municipality);
+  h+=field('Aesthetics',c.aesthetics?c.aesthetics+'/5':null);
+  h+=field('Difficulty',c.difficulty);
+  h+=field('Magnitude',c.magnitude);
+  h+=field('Depth',c.depth);
+  h+=field('Altitude',c.altitude);
+  h+=field('Route Type',c.route_type);
+  h+=field('Origin',c.origin);
+  h+=field('Approach Time',c.approach_time);
+  h+=field('Distance',c.distance);
+  h+=field('Elevation Change',c.elevation_change);
+  h+=field('Best Season',c.best_season);
+  h+=field('Access',c.access);
+  h+=field('Footwear',c.footwear);
+  h+=field('Clothing',c.clothing);
+  h+=field('Coordinates (UTM)',c.coordinates_utm);
+  h+=field('Last Updated',c.last_updated);
+  h+='</dl>';
+  if(c.equipment)h+='<div class="equip-box"><strong>Equipment:</strong> '+escHtml(c.equipment)+'</div>';
+  if(c.starting_point)h+='<div class="equip-box" style="background:#fefce8;color:#854d0e"><strong>Starting Point:</strong> '+escHtml(c.starting_point)+'</div>';
+  h+='</div>';
+
+  if(desc){
+    h+='<div class="detail-section"><h3>Description</h3>';
+    h+='<div class="desc-full">'+escHtml(desc)+'</div>';
+    h+='</div>';
+  }
+
+  if(c.url){
+    h+='<div class="source-link">Source: <a href="'+c.url+'" target="_blank" rel="noopener">View original page on Mallorca Verde ↗</a></div>';
+  }
+
+  dp.innerHTML=h;
+
+  if(c.lat&&c.lng){
+    setTimeout(()=>{
+      const mapEl=document.getElementById('caveMap-'+c.id);
+      if(!mapEl)return;
+      const m=L.map(mapEl,{zoomControl:true,scrollWheelZoom:true}).setView([c.lat,c.lng],14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(m);
+      L.marker([c.lat,c.lng]).addTo(m).bindPopup('<strong>'+escHtml(c.name)+'</strong>').openPopup();
+    },50);
+  }
+
+  window.scrollTo(0,0);
+  document.title=c.name+' · Caves of Mallorca';
+}
+
+function showList(){
+  document.getElementById('listPage').classList.remove('hidden');
+  document.getElementById('detailPage').classList.remove('open');
+  document.getElementById('detailPage').innerHTML='';
+  document.title='Caves of Mallorca';
+}
+
+function openFsImg(url){
+  document.getElementById('fsImg').src=url;
+  document.getElementById('fsOverlay').classList.add('open');
+}
+function closeFsImg(){
+  document.getElementById('fsOverlay').classList.remove('open');
+  document.getElementById('fsImg').src='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFsImg();});
+
+function handleHash(){
+  const h=location.hash.slice(1);
+  if(h&&caves.length){renderDetail(h);}
+  else{showList();}
+}
+
+window.addEventListener('hashchange',handleHash);
+
+document.getElementById('search').addEventListener('input',e=>{state.q=e.target.value;renderList();});
+document.getElementById('sortBy').addEventListener('change',e=>{state.sort=e.target.value;renderList();});
+document.getElementById('minAes').addEventListener('change',e=>{state.minAes=parseInt(e.target.value);renderList();});
+document.getElementById('maxDiff').addEventListener('change',e=>{state.maxDiff=parseInt(e.target.value);renderList();});
+
+fetch('caves.json').then(r=>r.json()).then(data=>{
+  caves=data;
+  document.getElementById('total').textContent=caves.length;
+  renderList();
+  handleHash();
+}).catch(err=>{console.error('Failed to load caves:',err);});
+</script>
+</body>
+</html>
