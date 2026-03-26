@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-TERRA/COVA-DE-SA-TERRA-4.JPG"
   ],
   "lat": 39.551268,
-  "lng": 2.540598
+  "lng": 2.540598,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-TERRA.jpg"
 }

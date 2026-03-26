@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-cala-falco/cova-cala-falco-6.jpg"
   ],
   "lat": 39.504123,
-  "lng": 3.299916
+  "lng": 3.299916,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-cala-falco.jpg"
 }

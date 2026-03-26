@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-BASSA/COVA-DE-SA-BASSA-4.JPG"
   ],
   "lat": 39.773957,
-  "lng": 2.767225
+  "lng": 2.767225,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-BASSA.jpg"
 }

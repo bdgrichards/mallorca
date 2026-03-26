@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DELS-OSSOS/cova-dels-ossos-8.JPG"
   ],
   "lat": 39.678733,
-  "lng": 3.419982
+  "lng": 3.419982,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-dels-ossos.JPG"
 }

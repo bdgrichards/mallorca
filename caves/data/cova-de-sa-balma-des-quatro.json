@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-BALMA-DES-QUARTO/P1080429.JPG"
   ],
   "lat": 39.514477,
-  "lng": 3.306371
+  "lng": 3.306371,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-BALMA-DES-QUARTO.jpg"
 }

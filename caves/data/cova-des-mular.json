@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-MULAR/COVA-DES-MULAR-8.jpg"
   ],
   "lat": 39.510129,
-  "lng": 3.308155
+  "lng": 3.308155,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-MULAR.jpg"
 }

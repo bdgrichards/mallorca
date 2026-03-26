@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/avenc-des-bolets/avenc-des-bolets-4.JPG"
   ],
   "lat": 39.829596,
-  "lng": 2.891202
+  "lng": 2.891202,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/avenc-des-bolets.jpg"
 }

@@ -34,5 +34,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/avenc-den-corbera/AVENC-DEN-CORBERA-3.jpg"
   ],
   "lat": 39.646674,
-  "lng": 2.630213
+  "lng": 2.630213,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/AVENC-DENCORBERA.jpg"
 }

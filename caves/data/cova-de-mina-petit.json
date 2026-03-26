@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-mina-petit/cova-de-mina-petit-8.JPG"
   ],
   "lat": 39.834649,
-  "lng": 2.956418
+  "lng": 2.956418,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-MINA-PETIT.jpg"
 }

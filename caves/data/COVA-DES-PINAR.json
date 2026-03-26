@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-PINAR/COVA-DES-PINAR-4.JPG"
   ],
   "lat": 39.600617,
-  "lng": 2.593734
+  "lng": 2.593734,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-des-pinar.jpg"
 }

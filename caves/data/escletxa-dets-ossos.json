@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/ESCLETXA-DETS-OSSOS/ESCLETXA-DETS-OSSOS-4.JPG"
   ],
   "lat": 39.564309,
-  "lng": 2.546053
+  "lng": 2.546053,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/ESCLETXA-DETS-OSSOS.jpg"
 }

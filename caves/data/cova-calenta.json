@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-calenta/cova-calenta-4.jpg"
   ],
   "lat": 39.431031,
-  "lng": 3.187244
+  "lng": 3.187244,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-CALENTA.jpg"
 }

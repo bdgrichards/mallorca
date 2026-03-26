@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-COLL-DES-VENT/COVA-DES-COLL-DES-VENT-4.jpg"
   ],
   "lat": 39.613399,
-  "lng": 2.600474
+  "lng": 2.600474,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DES-COLL-DES-VENT.jpg"
 }

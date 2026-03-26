@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SES-MOSQUES-GROSSES/COVA-DE-SES-MOSQUES-GROSSES-4.JPG"
   ],
   "lat": 39.561702,
-  "lng": 2.571261
+  "lng": 2.571261,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SES-MOSQUES-GROSSES.jpg"
 }

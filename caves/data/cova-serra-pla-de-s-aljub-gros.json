@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-SERRA-PLA-DE-S-ALJUB-GROS/COVA-SERRA-PLA-DE-S-ALJUB-GROS-4.jpg"
   ],
   "lat": 39.557741,
-  "lng": 2.548529
+  "lng": 2.548529,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-SERRA-PLA-DE-S-ALJUB-GROS.jpg"
 }

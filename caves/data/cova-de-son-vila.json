@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-de-son-vila/cova-de-son-vila-5.JPG"
   ],
   "lat": 39.823335,
-  "lng": 3.033501
+  "lng": 3.033501,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-son-vila.jpg"
 }

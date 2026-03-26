@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/pouet-escollarat-de-l-ase/pouet-escollarat-de-l-ase-4.JPG"
   ],
   "lat": 39.550485,
-  "lng": 2.54314
+  "lng": 2.54314,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/pouet-escollerat-del-ase.jpg"
 }

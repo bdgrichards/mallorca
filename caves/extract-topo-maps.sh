@@ -1,7 +1,6 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 BASE="http://www.mallorcaverde.es"
-TOPO_BASE="$BASE/imagenes/mapa-topografico-espeleo"
 count=0
 total=0
 
@@ -10,15 +9,13 @@ for f in data/*.json; do
   url=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$f','utf8')).url||'')")
   if [ -z "$url" ]; then continue; fi
 
-  # Extract the Mapa topográfico href from the main cave page
-  topo_href=$(curl -s --max-time 8 "$url" | grep -i 'topogr' | grep -o 'href="[^"]*"' | head -1 | sed 's/href="//;s/"//')
+  # Extract the mapa-topografico href specifically (not just any href on the topogr line)
+  topo_href=$(curl -s --max-time 8 "$url" | grep -o 'href="[^"]*mapa-topografico[^"]*"' | head -1 | sed 's/href="//;s/"//')
   if [ -z "$topo_href" ]; then continue; fi
 
   # Build full URL for the topo page
   if echo "$topo_href" | grep -q '^http'; then
     topo_page="$topo_href"
-  elif echo "$topo_href" | grep -q '^imagenes/'; then
-    topo_page="$BASE/$topo_href"
   else
     topo_page="$BASE/$topo_href"
   fi
@@ -27,9 +24,12 @@ for f in data/*.json; do
   topo_img=$(curl -s --max-time 8 "$topo_page" | grep -i 'img.*src=' | grep -iv 'banner' | grep -o 'src="[^"]*"' | head -1 | sed 's/src="//;s/"//')
   if [ -z "$topo_img" ]; then continue; fi
 
-  # Build full image URL (relative to topo page directory)
+  # Build full image URL
   topo_dir=$(echo "$topo_page" | sed 's|/[^/]*$||')
   full_topo_url="$topo_dir/$topo_img"
+
+  # Skip sin-mapa placeholder
+  if echo "$full_topo_url" | grep -q 'sin-mapa'; then continue; fi
 
   fname=$(basename "$f")
   echo "$fname: $full_topo_url"

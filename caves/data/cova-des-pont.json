@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-PONT/COVA-DES-PONT-4.JPG"
   ],
   "lat": 39.50752,
-  "lng": 3.296488
+  "lng": 3.296488,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-des-pont.jpg"
 }

@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SES-ARRELS/COVA-DE-SES-ARRELS-4.JPG"
   ],
   "lat": 39.545916,
-  "lng": 3.322616
+  "lng": 3.322616,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SES-ARRELS.jpg"
 }

@@ -36,5 +36,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cuevas-zona-m-alzamora.jpg"
   ],
   "lat": 39.57071,
-  "lng": 2.551495
+  "lng": 2.551495,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-de-sa-punta.jpg"
 }

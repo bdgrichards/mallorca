@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cavo-del-boc/cova-del-boc-8.jpg"
   ],
   "lat": 39.844522,
-  "lng": 2.98491
+  "lng": 2.98491,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-del-boc.JPG"
 }

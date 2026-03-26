@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DE-SA-CAMPANA/COVA-DE-SA-CAMPANA-4.JPG"
   ],
   "lat": 39.846928,
-  "lng": 2.811338
+  "lng": 2.811338,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVA-DE-SA-CAMPANA.jpg"
 }

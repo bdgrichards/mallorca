@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-pirata/cova-des-pirata-6.jpg"
   ],
   "lat": 39.508797,
-  "lng": 3.300692
+  "lng": 3.300692,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/pirata.jpg"
 }

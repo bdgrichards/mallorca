@@ -37,5 +37,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/cova-des-marmol/cova-des-marmol-baja-3.jpg"
   ],
   "lat": 39.568391,
-  "lng": 2.553
+  "lng": 2.553,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/COVES-DE-MARMOL.jpg"
 }

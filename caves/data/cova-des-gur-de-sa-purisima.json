@@ -35,5 +35,6 @@
     "http://www.mallorcaverde.es/imagenes/espeleo/COVA-DES-GUR-DE-SA-PURISIMA/COVA-DES-GUR-DE-SA-PURISIMA-4.jpg"
   ],
   "lat": 39.602675,
-  "lng": 2.589622
+  "lng": 2.589622,
+  "topo_map": "http://www.mallorcaverde.es/imagenes/mapa-topografico-espeleo/cova-des-gur-de-sa-purisima.jpg"
 }
